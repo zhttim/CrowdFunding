@@ -7,19 +7,10 @@
     <groupId>com.tim.crowdfunding</groupId>
     <artifactId>crowdfunding05-common-util</artifactId>
     <version>1.0.0</version>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>11</source> <!-- 源代码使用的开发版本 -->
-                    <target>11</target> <!-- 需要生成的目标class文件的编译版本 -->
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
 
 </project>
