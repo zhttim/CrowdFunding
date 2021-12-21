@@ -17,11 +17,13 @@
     </properties>
 
     <dependencies>
+        <!--        component依赖entity组件-->
         <dependency>
             <groupId>com.tim.crowdfunding</groupId>
             <artifactId>crowdfunding04-admin-entity</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <!--        component依赖util组件-->
         <dependency>
             <groupId>com.tim.crowdfunding</groupId>
             <artifactId>crowdfunding05-common-util</artifactId>
@@ -93,6 +95,7 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
         </dependency>
+        <!--spring-test-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>

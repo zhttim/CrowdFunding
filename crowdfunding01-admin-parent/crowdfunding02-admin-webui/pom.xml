@@ -18,11 +18,13 @@
     </properties>
 
     <dependencies>
+        <!--webui依赖component组件-->
         <dependency>
             <groupId>com.tim.crowdfunding</groupId>
             <artifactId>crowdfunding03-admin-component</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <!--添加spring-test类 scope为test没有依赖传递-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
