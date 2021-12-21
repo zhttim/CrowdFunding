@@ -4,6 +4,8 @@ import com.tim.crowdfunding.entity.Admin;
 import com.tim.crowdfunding.mapper.AdminMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -22,6 +24,15 @@ public class CrowdTest {
 
     @Autowired
     private AdminMapper adminMapper;
+
+    @Test
+    public void testLog(){
+        Logger logger = LoggerFactory.getLogger(CrowdTest.class);
+        logger.debug("debug");
+        logger.info("info");
+        logger.warn("warn");
+        logger.error("error");
+    }
 
     @Test
     public void testInsertAdmin(){
