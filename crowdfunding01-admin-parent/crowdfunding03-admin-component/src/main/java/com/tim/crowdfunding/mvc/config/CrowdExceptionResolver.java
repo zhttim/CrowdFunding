@@ -1,6 +1,7 @@
 package com.tim.crowdfunding.mvc.config;
 
 import com.google.gson.Gson;
+import com.tim.crwodfunding.constant.CrowdConstant;
 import com.tim.crwodfunding.util.CrowdUtil;
 import com.tim.crwodfunding.util.ResultEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -45,7 +46,7 @@ public class CrowdExceptionResolver {
         //如果不是Ajax请求，则创建ModelAndView对象
         ModelAndView modelAndView = new ModelAndView();
         //将Exception对象存入模型
-        modelAndView.addObject("exception", exception);
+        modelAndView.addObject(CrowdConstant.ATTR_NAME_EXCEPTION, exception);
         //设置对应的视图名称
         modelAndView.setViewName(viewName);
         return modelAndView;

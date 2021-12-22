@@ -20,7 +20,7 @@ public class CrowdUtil {
         // 2. 判断
         return (acceptHeader != null && acceptHeader.contains("application/json"))
                 ||
-                (xRequestHeader != null && xRequestHeader.equals("XMLHttpRequest"));
+                (xRequestHeader != null && "XMLHttpRequest".equals(xRequestHeader));
     }
 
 }

@@ -28,4 +28,6 @@
             </props>
         </property>
     </bean>
+    <!--配置view-controller，直接把请求地址和视图名称关联起来，从而无需写handler方法-->
+    <mvc:view-controller path="/admin/to/login/login.html" view-name="admin-login"/>
 </beans>
