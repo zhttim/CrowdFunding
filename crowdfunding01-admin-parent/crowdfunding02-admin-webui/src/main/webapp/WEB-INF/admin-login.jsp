@@ -31,7 +31,8 @@
 <div class="container">
 
     <form action="admin/to/login/login.html" method="post" class="form-signin" role="form">
-        <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i> 用户登录</h2>
+        <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i> 管理员登录</h2>
+        <p>${requestScope.exception.message}</p>
         <div class="form-group has-success has-feedback">
             <input type="text" name="login-user" class="form-control" id="inputSuccess4" placeholder="请输入登录账号"
                    autofocus>

@@ -2,6 +2,7 @@ package com.tim.crowdfunding.mvc.config;
 
 import com.google.gson.Gson;
 import com.tim.crwodfunding.constant.CrowdConstant;
+import com.tim.crwodfunding.exception.LoginFailedException;
 import com.tim.crwodfunding.util.CrowdUtil;
 import com.tim.crwodfunding.util.ResultEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,6 +16,14 @@ import java.io.IOException;
 //@ControllerAdvice表示基于注解的异常处理器类
 @ControllerAdvice
 public class CrowdExceptionResolver {
+    //@ExceptionHandler将异常与方法关联
+    // 空指针异常
+    @ExceptionHandler(LoginFailedException.class)
+    public ModelAndView resolveLoginFailedException(LoginFailedException exception, HttpServletRequest request,
+                                                    HttpServletResponse response) throws IOException {
+        String viewName = "admin-login";
+        return commonResolve(viewName, exception, request, response);
+    }
 
     //@ExceptionHandler将异常与方法关联
     // 空指针异常
