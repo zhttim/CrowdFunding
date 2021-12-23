@@ -30,16 +30,16 @@
 
 <div class="container">
 
-    <form action="admin/to/login/login.html" method="post" class="form-signin" role="form">
-        <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i> 管理员登录</h2>
+    <form action="admin/do/login.html" method="post" class="form-signin" role="form">
+        <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i>管理员登录</h2>
         <p>${requestScope.exception.message}</p>
         <div class="form-group has-success has-feedback">
-            <input type="text" name="login-user" class="form-control" id="inputSuccess4" placeholder="请输入登录账号"
+            <input type="text" name="loginAcct" class="form-control" id="inputSuccess4" placeholder="请输入登录账号"
                    autofocus>
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
         </div>
         <div class="form-group has-success has-feedback">
-            <input type="text" name="login-pwd" class="form-control" id="inputSuccess4" placeholder="请输入登录密码"
+            <input type="password" name="userPswd" class="form-control" id="inputSuccess4" placeholder="请输入登录密码"
                    style="margin-top:10px;">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>

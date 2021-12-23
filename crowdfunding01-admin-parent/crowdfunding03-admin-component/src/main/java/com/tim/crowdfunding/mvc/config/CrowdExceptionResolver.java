@@ -17,20 +17,12 @@ import java.io.IOException;
 @ControllerAdvice
 public class CrowdExceptionResolver {
     //@ExceptionHandler将异常与方法关联
-    // 空指针异常
+    // 登陆失败异常
     @ExceptionHandler(LoginFailedException.class)
     public ModelAndView resolveLoginFailedException(LoginFailedException exception, HttpServletRequest request,
                                                     HttpServletResponse response) throws IOException {
+        //设置跳转视图
         String viewName = "admin-login";
-        return commonResolve(viewName, exception, request, response);
-    }
-
-    //@ExceptionHandler将异常与方法关联
-    // 空指针异常
-    @ExceptionHandler(NullPointerException.class)
-    public ModelAndView resolveNullPointerException(NullPointerException exception, HttpServletRequest request,
-                                                    HttpServletResponse response) throws IOException {
-        String viewName = "system-error";
         return commonResolve(viewName, exception, request, response);
     }
 

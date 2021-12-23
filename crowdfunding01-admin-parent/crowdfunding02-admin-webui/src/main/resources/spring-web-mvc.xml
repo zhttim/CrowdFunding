@@ -29,5 +29,19 @@
         </property>
     </bean>
     <!--配置view-controller，直接把请求地址和视图名称关联起来，从而无需写handler方法-->
-    <mvc:view-controller path="/admin/to/login/login.html" view-name="admin-login"/>
+    <mvc:view-controller path="/admin/to/login/page.html" view-name="admin-login"/>
+    <mvc:view-controller path="/admin/to/main/page.html" view-name="admin-main"/>
+    
+    <!--注册拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--要拦截的路径-->
+            <!-- /*对应一层路径 /**对应多层路径-->
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/admin/to/login/page.html"/>
+            <mvc:exclude-mapping path="/admin/do/login.html"/>
+            <mvc:exclude-mapping path="/admin/do/logout.html"/>
+            <ref bean="loginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>
