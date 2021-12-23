@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)throws Exception{
         // 通过request对象获取Session对象
         HttpSession session = request.getSession();
         // 尝试从Session域获取Admin对象

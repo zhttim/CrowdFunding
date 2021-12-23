@@ -1,5 +1,7 @@
 package com.tim.crowdfunding.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.tim.crowdfunding.entity.Admin;
 import com.tim.crowdfunding.entity.AdminExample;
 import com.tim.crowdfunding.mapper.AdminMapper;
@@ -15,9 +17,19 @@ import java.util.Objects;
 
 @Service
 public class AdminServiceImpl implements AdminService {
+
     @Autowired
     private AdminMapper adminMapper;
 
+    @Override
+    public PageInfo<Admin> getPageInfo(String keyword, Integer pageNum, Integer pageSize) {
+        // 调用PageHelper的静态方法开启分页功能
+        PageHelper.startPage(pageNum, pageSize);
+        // 执行查询
+        List<Admin> adminList = adminMapper.selectAdminByKeyword(keyword);
+        // 封装到PageInfo对象
+        return new PageInfo<Admin>(adminList);
+    }
     @Override
     public void saveAdmin(Admin admin) {
         adminMapper.insert(admin);
