@@ -2,6 +2,7 @@ package com.tim.crowdfunding.mvc.config;
 
 import com.google.gson.Gson;
 import com.tim.crwodfunding.constant.CrowdConstant;
+import com.tim.crwodfunding.exception.LoginAcctAlreadyInUseException;
 import com.tim.crwodfunding.exception.LoginFailedException;
 import com.tim.crwodfunding.util.CrowdUtil;
 import com.tim.crwodfunding.util.ResultEntity;
@@ -23,6 +24,15 @@ public class CrowdExceptionResolver {
                                                     HttpServletResponse response) throws IOException {
         //设置跳转视图
         String viewName = "admin-login";
+        return commonResolve(viewName, exception, request, response);
+    }
+
+    // 用户名重复异常
+    @ExceptionHandler(value = LoginAcctAlreadyInUseException.class)
+    public ModelAndView resolveLoginAcctAlreadyInUseException(LoginAcctAlreadyInUseException exception,
+                                                              HttpServletRequest request,
+                                                              HttpServletResponse response) throws IOException {
+        String viewName = "admin-add";
         return commonResolve(viewName, exception, request, response);
     }
 

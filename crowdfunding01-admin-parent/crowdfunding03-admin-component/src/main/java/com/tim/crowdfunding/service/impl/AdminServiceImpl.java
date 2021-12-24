@@ -7,11 +7,15 @@ import com.tim.crowdfunding.entity.AdminExample;
 import com.tim.crowdfunding.mapper.AdminMapper;
 import com.tim.crowdfunding.service.api.AdminService;
 import com.tim.crwodfunding.constant.CrowdConstant;
+import com.tim.crwodfunding.exception.LoginAcctAlreadyInUseException;
 import com.tim.crwodfunding.exception.LoginFailedException;
 import com.tim.crwodfunding.util.CrowdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,6 +24,12 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AdminMapper adminMapper;
+
+    @Override
+    public void remove(Integer adminId) {
+        //根据id删除数据库中admin数据
+        adminMapper.deleteByPrimaryKey(adminId);
+    }
 
     @Override
     public PageInfo<Admin> getPageInfo(String keyword, Integer pageNum, Integer pageSize) {
@@ -32,7 +42,19 @@ public class AdminServiceImpl implements AdminService {
     }
     @Override
     public void saveAdmin(Admin admin) {
-        adminMapper.insert(admin);
+        // 密码加密
+        admin.setUserPswd(CrowdUtil.md5(admin.getUserPswd()));
+        //设置创建时间
+        String createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        admin.setCreateTime(createTime);
+
+        try {
+            adminMapper.insert(admin);
+        } catch (Exception e) {
+             if(e instanceof DuplicateKeyException){
+                throw new LoginAcctAlreadyInUseException(CrowdConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
+            }
+        }
     }
 
     @Override
