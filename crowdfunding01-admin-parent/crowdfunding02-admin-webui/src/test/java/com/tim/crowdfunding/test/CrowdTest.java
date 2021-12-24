@@ -3,6 +3,7 @@ package com.tim.crowdfunding.test;
 import com.tim.crowdfunding.entity.Admin;
 import com.tim.crowdfunding.mapper.AdminMapper;
 import com.tim.crowdfunding.service.api.AdminService;
+import com.tim.crwodfunding.util.CrowdUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -61,6 +62,19 @@ public class CrowdTest {
     public void testTx() {
         Admin admin = new Admin(null, "jerry", "123456", "杰瑞", "jerry@qq.com", null);
         adminService.saveAdmin(admin);
+    }
+
+    @Test
+    //添加模拟用户数据
+    public void testCreatData() {
+        for (int i = 1000; i < 1100; i++) {
+            String loginAcct = "testUser" + i;
+            String userPswd = CrowdUtil.md5("123456");
+            String userName = "User" + i;
+            String email = loginAcct + "@qq.com";
+            Admin admin = new Admin(null, loginAcct, userPswd, userName, email,null);
+            adminMapper.insert(admin);
+        }
     }
 
 }
