@@ -3,6 +3,7 @@ package com.tim.crowdfunding.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tim.crowdfunding.entity.Role;
+import com.tim.crowdfunding.entity.RoleExample;
 import com.tim.crowdfunding.mapper.RoleMapper;
 import com.tim.crowdfunding.service.api.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,13 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void updateRole(Role role) {
         roleMapper.updateByPrimaryKey(role);
+    }
+
+    @Override
+    public void removeRole(List<Integer> roleIdList) {
+        RoleExample roleExample = new RoleExample();
+        RoleExample.Criteria criteria = roleExample.createCriteria();
+        criteria.andIdIn(roleIdList);
+        roleMapper.deleteByExample(roleExample);
     }
 }

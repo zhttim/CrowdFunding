@@ -69,7 +69,7 @@
 
         });
         // 更新
-        $("#rolePageBody").on("click",".pencilBtn", function (){
+        $("#rolePageBody").on("click", ".pencilBtn", function () {
             // 打开模态框
             $("#editModal").modal("show");
 
@@ -84,7 +84,7 @@
         });
 
         // 给更新模态框中的更新按钮绑定单机响应函数
-        $("#updateRoleBtn").click(function (){
+        $("#updateRoleBtn").click(function () {
             // 从文本框中获取新的角色名称
             let roleName = $("#editModal [name=roleName]").val();
 
@@ -97,7 +97,7 @@
                     name: roleName
                 },
                 dataType: "json",
-                success: function (resp){
+                success: function (resp) {
                     let result = resp.result;
                     if (result === "SUCCESS") {
                         layer.msg("更新成功！");
@@ -106,15 +106,124 @@
                         generatePage();
                     }
                     if (result === "FAILED") {
-                        layer.msg("操作失败！"+resp.message);
+                        layer.msg("操作失败！" + resp.message);
                     }
                 },
                 error: function (resp) {
-                    layer.msg(resp.status+""+resp.statusText);
+                    layer.msg(resp.status + "" + resp.statusText);
                 }
             });
             // 关闭模态框
             $("#editModal").modal("hide");
+        });
+        // 点击确认模态框中的确认删除按钮执行删除
+        $("#removeRoleBtn").click(function () {
+
+            let requestBody = JSON.stringify(window.roleIdArray);
+            $.ajax({
+                url: "role/remove/by/role/id/array.json",
+                type: "post",
+                data: requestBody,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (resp) {
+                    let result = resp.result;
+                    if (result === "SUCCESS") {
+                        layer.msg("删除成功！");
+
+                        // 重新加载分页
+                        generatePage();
+                    }
+                    if (result === "FAILED") {
+                        layer.msg("操作失败！" + resp.message);
+                    }
+                },
+                error: function (resp) {
+                    layer.msg(resp.status + "" + resp.statusText);
+                }
+            });
+            // 关闭模态框
+            $("#confirmModal").modal("hide");
+        });
+
+        // 单条删除
+        $("#rolePageBody").on("click", ".removeBtn", function () {
+
+            // 从当前按钮出发获取角色名称
+            let roleName = $(this).parent().prev().text();
+
+            // 创建role对象存入数组
+            let roleArray = [{
+                roleId: this.id,
+                roleName: roleName
+            }];
+
+            // 调用函数打开模态框
+            showConfirmModal(roleArray);
+        });
+
+        // 给总的checkbox绑定单机响应函数
+        $("#summaryBox").click(function () {
+
+            // 获取当前多选框自身状态
+            let currentStatus = this.checked;
+
+            // 用当前多选框状态设置其它多选框
+            $(".itemBox").prop("checked", currentStatus);
+        });
+        //给总的checkbox绑定单机响应函数
+        $("#summaryBox").click(function () {
+
+            // 获取当前多选框自身状态
+            let currentStatus = this.checked;
+
+            // 用当前多选框状态设置其它多选框
+            $(".itemBox").prop("checked", currentStatus);
+        });
+
+        // 全选全不选的反向操作
+        $("#rolePageBody").on("click", ".itemBox", function () {
+
+            // 获取当前已经选中的.itemBox的数量
+            let checkedBoxCount = $(".itemBox:checked").length;
+
+            // 获取全部.itemBox的数量
+            let totalBoxCount = $(".itemBox").length;
+
+            // 使用两者的比较结果设置总的checkBox
+            $("#summaryBox").prop("checked", checkedBoxCount === totalBoxCount)
+        });
+
+        // 给批量删除的按钮绑定单击响应函数
+        $("#batchRemoveBtn").click(function () {
+
+            // 创建数组对象用来存放后面获取到的角色对象
+            let roleArray = [];
+
+            // 遍历当前选中的多选框
+            $(".itemBox:checked").each(function () {
+
+                // 使用this引用当前遍历得到的多选框
+                let roleId = this.id;
+                console.log("roleId:" + roleId);
+
+                // 通过DOM操作获取角色名称
+                let roleName = $(this).parent().next().text();
+
+                roleArray.push({
+                    roleId: roleId,
+                    roleName: roleName
+                });
+            });
+
+            // 检查roleArray的长度是否为0
+            if (roleArray.length === 0) {
+                layer.msg("请至少选择一个执行删除");
+                return;
+            }
+
+            // 调用专门的函数打开确认模态框
+            showConfirmModal(roleArray);
         });
     })
 </script>
@@ -141,8 +250,8 @@
                                 class="glyphicon glyphicon-search"></i> 查询
                         </button>
                     </form>
-                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i
-                            class=" glyphicon glyphicon-remove"></i> 删除
+                    <button type="button" id="batchRemoveBtn" class="btn btn-danger"
+                            style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除
                     </button>
                     <button type="button" id="showAddModalBtn" class="btn btn-primary" style="float:right;"><i
                             class="glyphicon glyphicon-plus"></i> 新增
@@ -154,12 +263,13 @@
                             <thead>
                             <tr>
                                 <th width="30">#</th>
-                                <th width="30"><input type="checkbox"></th>
+                                <th width="30"><input id="summaryBox" type="checkbox"></th>
                                 <th>名称</th>
                                 <th width="100">操作</th>
                             </tr>
                             </thead>
                             <tbody id="rolePageBody">
+                            <%--这里显示角色数据--%>
                             </tbody>
                             <tfoot>
                             <tr>
@@ -179,5 +289,6 @@
 </div>
 <%@include file="/WEB-INF/modal-role-add.jsp" %>
 <%@include file="/WEB-INF/modal-role-edit.jsp" %>
+<%@include file="/WEB-INF/modal-role-confirm.jsp" %>
 </body>
 </html>
