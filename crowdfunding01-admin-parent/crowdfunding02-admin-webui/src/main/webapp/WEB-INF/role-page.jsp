@@ -13,13 +13,61 @@
 <script type="text/javascript" src="crowdfundingjs/my-role.js"></script>
 <script type="text/javascript">
     $(function () {
-        // 1.为分页操作准备初始化数据
+        // 为分页操作准备初始化数据
         window.pageNum = 1;
         window.pageSize = 5;
         window.keyword = "";
 
-        // 2. 调用分页函数，实现分页效果
+        // 调用分页函数，实现分页效果
         generatePage();
+
+        //  查询操作
+        $("#searchBtn").click(function () {
+            window.keyword = $("#keywordInput").val();
+            generatePage();
+        });
+        // 点击新增打开模态框
+        $("#showAddModalBtn").click(function () {
+            $("#addModal").modal("show");
+        });
+        // 模态框数据保存
+        $("#saveRoleBtn").click(function () {
+            // 获取用户在模态框中输入的角色名，trim去前后空格
+            let roleName = $.trim($("#addModal [name=roleName]").val());
+
+            // 发送ajax请求
+            $.ajax({
+                url: "role/save.json",
+                type: "post",
+                data: {
+                    name: roleName
+                },
+                dataType: "json",
+                success: function (resp) {
+                    let result = resp.result;
+                    if (result === "SUCCESS") {
+                        layer.msg("已保存");
+
+                        // 重新加载分页
+                        window.pageNum = 99999999;
+                        generatePage();
+                    }
+                    if (result === "FAILED") {
+                        layer.msg("操作失败！" + resp.message);
+                    }
+                },
+                error: function (resp) {
+                    layer.msg(resp.status + "" + resp.statusText);
+                }
+            });
+
+            // 关闭模态框
+            $("#addModal").modal("hide");
+
+            // 清理模态框内容
+            $("#addModal [name=roleName]").val("");
+
+        });
     })
 </script>
 <body>
@@ -37,17 +85,19 @@
                         <div class="form-group has-feedback">
                             <div class="input-group">
                                 <div class="input-group-addon">查询条件</div>
-                                <input class="form-control has-success" type="text" placeholder="请输入查询条件">
+                                <input id="keywordInput" class="form-control has-success" type="text"
+                                       placeholder="请输入查询条件">
                             </div>
                         </div>
-                        <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询
+                        <button id="searchBtn" type="button" class="btn btn-warning"><i
+                                class="glyphicon glyphicon-search"></i> 查询
                         </button>
                     </form>
                     <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i
                             class=" glyphicon glyphicon-remove"></i> 删除
                     </button>
-                    <button type="button" class="btn btn-primary" style="float:right;"
-                            onclick="window.location.href='form.html'"><i class="glyphicon glyphicon-plus"></i> 新增
+                    <button type="button" id="showAddModalBtn" class="btn btn-primary" style="float:right;"><i
+                            class="glyphicon glyphicon-plus"></i> 新增
                     </button>
                     <br>
                     <hr style="clear:both;">
@@ -79,5 +129,6 @@
         </div>
     </div>
 </div>
+<%@include file="/WEB-INF/modal-role-add.jsp" %>
 </body>
 </html>

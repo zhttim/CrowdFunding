@@ -27,4 +27,11 @@ public class RoleHandler {
         //如果抛出异常springmvc调用异常处理机制处理
         return ResultEntity.successWithData(pageInfo);
     }
+
+    @ResponseBody
+    @RequestMapping("role/save.json")
+    public ResultEntity<String> saveRole(Role role){
+        roleService.saveRole(role);
+        return ResultEntity.successWithoutData();
+    }
 }

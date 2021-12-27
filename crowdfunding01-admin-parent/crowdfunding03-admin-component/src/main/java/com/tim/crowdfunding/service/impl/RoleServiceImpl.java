@@ -24,4 +24,9 @@ public class RoleServiceImpl implements RoleService {
         //分装为PageInfo
         return new PageInfo<>(roleList);
     }
+
+    @Override
+    public void saveRole(Role role) {
+        roleMapper.insert(role);
+    }
 }
