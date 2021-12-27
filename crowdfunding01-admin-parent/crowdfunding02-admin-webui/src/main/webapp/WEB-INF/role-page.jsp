@@ -68,6 +68,54 @@
             $("#addModal [name=roleName]").val("");
 
         });
+        // 更新
+        $("#rolePageBody").on("click",".pencilBtn", function (){
+            // 打开模态框
+            $("#editModal").modal("show");
+
+            // 获取表格中当前行中的角色名称
+            let roleName = $(this).parent().prev().text();
+
+            // 获取当前角色id
+            window.roleId = this.id;
+
+            // 使用roleName的值设置模态框中的文本框
+            $("#editModal [name=roleName]").val(roleName);
+        });
+
+        // 给更新模态框中的更新按钮绑定单机响应函数
+        $("#updateRoleBtn").click(function (){
+            // 从文本框中获取新的角色名称
+            let roleName = $("#editModal [name=roleName]").val();
+
+            // 发送ajax请求执行更新
+            $.ajax({
+                url: "role/update.json",
+                type: "post",
+                data: {
+                    id: window.roleId,
+                    name: roleName
+                },
+                dataType: "json",
+                success: function (resp){
+                    let result = resp.result;
+                    if (result === "SUCCESS") {
+                        layer.msg("更新成功！");
+
+                        // 重新加载分页
+                        generatePage();
+                    }
+                    if (result === "FAILED") {
+                        layer.msg("操作失败！"+resp.message);
+                    }
+                },
+                error: function (resp) {
+                    layer.msg(resp.status+""+resp.statusText);
+                }
+            });
+            // 关闭模态框
+            $("#editModal").modal("hide");
+        });
     })
 </script>
 <body>
@@ -130,5 +178,6 @@
     </div>
 </div>
 <%@include file="/WEB-INF/modal-role-add.jsp" %>
+<%@include file="/WEB-INF/modal-role-edit.jsp" %>
 </body>
 </html>

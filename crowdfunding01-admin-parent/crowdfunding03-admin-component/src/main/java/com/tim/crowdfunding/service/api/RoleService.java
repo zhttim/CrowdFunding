@@ -7,4 +7,6 @@ public interface RoleService {
     PageInfo<Role> getPageInfo(Integer pageNum, Integer pageSize, String keyword);
 
     void saveRole(Role role);
+
+    void updateRole(Role role);
 }

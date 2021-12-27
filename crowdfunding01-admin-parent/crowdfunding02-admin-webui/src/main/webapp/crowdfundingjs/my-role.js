@@ -63,7 +63,7 @@ function fillTableBody(pageInfo) {
         let roleNameTd = "<td>" + roleName + "</td>";
 
         let checkBtn = "<button type=\"button\" class=\"btn btn-success btn-xs\"><i class=\" glyphicon glyphicon-check\"></i></button>";
-        let pencilBtn = "<button type=\"button\" class=\"btn btn-primary btn-xs\"><i class=\" glyphicon glyphicon-pencil\"></i></button>";
+        let pencilBtn = "<button id='" + roleId + "'type='button' class='btn btn-primary btn-xs pencilBtn'><i class='glyphicon glyphicon-pencil'></i></button>";
         let removeBtn = "<button type=\"button\" class=\"btn btn-danger btn-xs\"><i class=\" glyphicon glyphicon-remove\"></i></button>";
 
         let buttonTd = "<td>" + checkBtn + " " + pencilBtn + " " + removeBtn + "</td>"
