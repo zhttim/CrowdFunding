@@ -18,6 +18,27 @@ public class AdminHandler {
     @Autowired
     AdminService adminService;
 
+    @RequestMapping("admin/update.html")
+    public String update(
+            Admin admin,
+            @RequestParam(value = "keyword",defaultValue = "") String keyword,
+            @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum
+    ){
+        // 提交更新信息
+        adminService.update(admin);
+        return "redirect:/admin/get/page.html?pageNum=" + pageNum + "&keyword=" + keyword;
+    }
+
+    @RequestMapping("admin/to/edit/page.html")
+    public String edit(@RequestParam("adminId") Integer adminId,
+                       ModelMap modelMap
+    ) {
+        // 跳转修改页面
+        Admin admin = adminService.getAdminById(adminId);
+        modelMap.addAttribute(CrowdConstant.ATTR_NAME_ADMIN,admin);
+        return "admin-edit";
+    }
+
     @RequestMapping("admin/remove/{adminId}/{pageNum}/{keyword}.html")
     public String remove(
             @PathVariable("adminId") Integer adminId,

@@ -1,7 +1,9 @@
 package com.tim.crowdfunding.test;
 
 import com.tim.crowdfunding.entity.Admin;
+import com.tim.crowdfunding.entity.Role;
 import com.tim.crowdfunding.mapper.AdminMapper;
+import com.tim.crowdfunding.mapper.RoleMapper;
 import com.tim.crowdfunding.service.api.AdminService;
 import com.tim.crwodfunding.util.CrowdUtil;
 import org.junit.Test;
@@ -30,6 +32,9 @@ public class CrowdTest {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private RoleMapper roleMapper;
 
     @Test
     public void testLog() {
@@ -74,6 +79,15 @@ public class CrowdTest {
             String email = loginAcct + "@qq.com";
             Admin admin = new Admin(null, loginAcct, userPswd, userName, email,null);
             adminMapper.insert(admin);
+        }
+    }
+
+    @Test
+    public void testCreateRoleData(){
+        for (int i = 100; i < 131; i++) {
+            String name = "testRole" + i;
+            Role role = new Role(null, name);
+            roleMapper.insert(role);
         }
     }
 

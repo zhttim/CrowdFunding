@@ -3,6 +3,7 @@ package com.tim.crowdfunding.mvc.config;
 import com.google.gson.Gson;
 import com.tim.crwodfunding.constant.CrowdConstant;
 import com.tim.crwodfunding.exception.LoginAcctAlreadyInUseException;
+import com.tim.crwodfunding.exception.LoginAcctAlreadyInUseForUpdateException;
 import com.tim.crwodfunding.exception.LoginFailedException;
 import com.tim.crwodfunding.util.CrowdUtil;
 import com.tim.crwodfunding.util.ResultEntity;
@@ -33,6 +34,13 @@ public class CrowdExceptionResolver {
                                                               HttpServletRequest request,
                                                               HttpServletResponse response) throws IOException {
         String viewName = "admin-add";
+        return commonResolve(viewName, exception, request, response);
+    }
+    @ExceptionHandler(value = LoginAcctAlreadyInUseForUpdateException.class)
+    public ModelAndView resolveLoginAcctAlreadyInUseForUpdateException(LoginAcctAlreadyInUseForUpdateException exception,
+                                                              HttpServletRequest request,
+                                                              HttpServletResponse response) throws IOException {
+        String viewName = "system-error";
         return commonResolve(viewName, exception, request, response);
     }
 

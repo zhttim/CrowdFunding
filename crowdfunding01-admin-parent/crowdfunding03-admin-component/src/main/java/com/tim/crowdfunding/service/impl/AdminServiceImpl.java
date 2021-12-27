@@ -8,6 +8,7 @@ import com.tim.crowdfunding.mapper.AdminMapper;
 import com.tim.crowdfunding.service.api.AdminService;
 import com.tim.crwodfunding.constant.CrowdConstant;
 import com.tim.crwodfunding.exception.LoginAcctAlreadyInUseException;
+import com.tim.crwodfunding.exception.LoginAcctAlreadyInUseForUpdateException;
 import com.tim.crwodfunding.exception.LoginFailedException;
 import com.tim.crwodfunding.util.CrowdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,24 @@ public class AdminServiceImpl implements AdminService {
     private AdminMapper adminMapper;
 
     @Override
+    public void update(Admin admin) {
+        try {
+            // 有选择的更新，对于null值字段不更新
+            adminMapper.updateByPrimaryKeySelective(admin);
+        } catch (Exception e) {
+            // 用户名重复异常
+            if (e instanceof DuplicateKeyException) {
+                throw new LoginAcctAlreadyInUseForUpdateException(CrowdConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
+            }
+        }
+    }
+
+    @Override
+    public Admin getAdminById(Integer adminId) {
+        return adminMapper.selectByPrimaryKey(adminId);
+    }
+
+    @Override
     public void remove(Integer adminId) {
         //根据id删除数据库中admin数据
         adminMapper.deleteByPrimaryKey(adminId);
@@ -40,6 +59,7 @@ public class AdminServiceImpl implements AdminService {
         // 封装到PageInfo对象
         return new PageInfo<Admin>(adminList);
     }
+
     @Override
     public void saveAdmin(Admin admin) {
         // 密码加密
@@ -51,7 +71,8 @@ public class AdminServiceImpl implements AdminService {
         try {
             adminMapper.insert(admin);
         } catch (Exception e) {
-             if(e instanceof DuplicateKeyException){
+            // 用户名重复异常
+            if (e instanceof DuplicateKeyException) {
                 throw new LoginAcctAlreadyInUseException(CrowdConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
             }
         }
