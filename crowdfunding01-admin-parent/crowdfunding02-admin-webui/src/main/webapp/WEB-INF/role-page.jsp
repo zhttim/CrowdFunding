@@ -171,15 +171,6 @@
             // 用当前多选框状态设置其它多选框
             $(".itemBox").prop("checked", currentStatus);
         });
-        //给总的checkbox绑定单机响应函数
-        $("#summaryBox").click(function () {
-
-            // 获取当前多选框自身状态
-            let currentStatus = this.checked;
-
-            // 用当前多选框状态设置其它多选框
-            $(".itemBox").prop("checked", currentStatus);
-        });
 
         // 全选全不选的反向操作
         $("#rolePageBody").on("click", ".itemBox", function () {

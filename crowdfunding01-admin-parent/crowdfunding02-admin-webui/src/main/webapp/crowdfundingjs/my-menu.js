@@ -25,9 +25,9 @@ function myAddHoverDom(treeId, treeNode) {
     if ($("#" + btnGroupId).length > 0) {
         return;
     }
-    let addBtn = "<a id='" + treeNode.id + "' class='btn btn-info dropdown-toggle btn-xs' style='margin-left:10px;padding-top:0px;' href='#' title='添加子节点'>&nbsp;&nbsp;<i class='fa fa-fw fa-plus rbg '></i></a>";
-    let removeBtn = "<a id='" + treeNode.id + "' class='btn btn-info dropdown-toggle btn-xs' style='margin-left:10px;padding-top:0px;' href='#' title=' 删 除 节 点 '>&nbsp;&nbsp;<i class='fa fa-fw fa-times rbg '></i></a>";
-    let editBtn = "<a id='" + treeNode.id + "' class='btn btn-info dropdown-toggle btn-xs' style='margin-left:10px;padding-top:0px;' href='#' title=' 修 改 节 点 '>&nbsp;&nbsp;<i class='fa fa-fw fa-edit rbg '></i></a>";
+    let addBtn = "<a id='" + treeNode.id + "' class='addBtn btn btn-info dropdown-toggle btn-xs' style='margin-left:10px;padding-top:0px;' href='#' title='添加子节点'>&nbsp;&nbsp;<i class='fa fa-fw fa-plus rbg '></i></a>";
+    let removeBtn = "<a id='" + treeNode.id + "' class='removeBtn btn btn-info dropdown-toggle btn-xs' style='margin-left:10px;padding-top:0px;' href='#' title=' 删 除 节 点 '>&nbsp;&nbsp;<i class='fa fa-fw fa-times rbg '></i></a>";
+    let editBtn = "<a id='" + treeNode.id + "' class='editBtn btn btn-info dropdown-toggle btn-xs' style='margin-left:10px;padding-top:0px;' href='#' title=' 修 改 节 点 '>&nbsp;&nbsp;<i class='fafa-fw fa-edit rbg '></i></a>";
 
     // 获取当前节点的级别数据
     let level = treeNode.level;
@@ -80,7 +80,9 @@ function generateTree() {
                 // 创建json对象用于存储对zTree所做的设置
                 let setting = {
                     view: {
-                        addDiyDom: myAddDiyDom
+                        addDiyDom: myAddDiyDom,
+                        addHoverDom: myAddHoverDom,
+                        removeHoverDom: myRemoveHoverDom
                     },
                     data: {
                         key: {

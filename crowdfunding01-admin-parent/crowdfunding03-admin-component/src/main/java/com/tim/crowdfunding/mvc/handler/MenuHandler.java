@@ -55,4 +55,12 @@ public class MenuHandler {
         return ResultEntity.successWithData(root);
     }
 
+    @ResponseBody
+    @RequestMapping("menu/save.json")
+    public ResultEntity<String> saveMenu(Menu menu){
+        menuService.saveMenu(menu);
+        return ResultEntity.successWithoutData();
+    }
+
+
 }

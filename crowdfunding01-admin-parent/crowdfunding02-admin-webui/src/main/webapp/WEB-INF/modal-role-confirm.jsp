@@ -11,7 +11,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">系统弹窗</h4>
+                <h4 class="modal-title">删除角色</h4>
             </div>
             <div class="modal-body">
                 <h4>请确认是否要删除下列角色</h4>
