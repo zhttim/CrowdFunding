@@ -6,6 +6,7 @@ import com.tim.crwodfunding.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -66,6 +67,13 @@ public class MenuHandler {
     @RequestMapping("menu/edit.json")
     public ResultEntity<String> editMenu(Menu menu){
         menuService.editMenu(menu);
+        return ResultEntity.successWithoutData();
+    }
+
+    @ResponseBody
+    @RequestMapping("menu/remove.json")
+    public ResultEntity<String> removeMenu(@RequestParam("id") Integer id){
+        menuService.removeMenu(id);
         return ResultEntity.successWithoutData();
     }
 
