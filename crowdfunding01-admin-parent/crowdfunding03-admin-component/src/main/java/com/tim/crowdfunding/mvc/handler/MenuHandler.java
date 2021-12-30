@@ -62,5 +62,12 @@ public class MenuHandler {
         return ResultEntity.successWithoutData();
     }
 
+    @ResponseBody
+    @RequestMapping("menu/edit.json")
+    public ResultEntity<String> editMenu(Menu menu){
+        menuService.editMenu(menu);
+        return ResultEntity.successWithoutData();
+    }
+
 
 }

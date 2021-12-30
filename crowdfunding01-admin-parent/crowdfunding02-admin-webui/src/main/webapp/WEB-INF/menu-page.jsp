@@ -77,6 +77,71 @@
             // jQuery对象调用click()函数，里面不传任何参数，相当于用户点击了一下
             $("#menuResetBtn").click();
         });
+        // 动态生成的修改按钮，单击打开修改的模态框
+        $("#treeDemo").on("click", ".editBtn", function () {
+
+            // 保存此按钮的id
+            window.id = this.id;
+
+            $("#menuEditModal").modal("show");
+
+            // 要实现通过id拿到整个节点的信息，需要拿到zTreeObj
+            var zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
+
+            var key = "id";
+            var value = window.id;
+
+            // getNodeByParam，通过id得到当前的整个节点
+            // 注意：id为treeNode的id，返回的就是那个treeNode
+            var currentNode = zTreeObj.getNodeByParam(key, value);
+
+            $("#menuEditModal [name=name]").val(currentNode.name);
+
+            $("#menuEditModal [name=url]").val(currentNode.url);
+            // 这里currentNode.icon其实是数组形式，利用这个值，放在[]中，传回val，就可以使相匹配的值回显在模态框中
+            $("#menuEditModal [name=icon]").val([currentNode.icon]);
+
+            return false;
+        });
+        // 修改的模态框”修改按钮“的单击事件
+        $("#menuEditBtn").click(function () {
+            var name = $.trim($("#menuEditModal [name=name]").val());
+
+            var url = $.trim($("#menuEditModal [name=url]").val());
+
+            var icon = $("#menuEditModal [name=icon]:checked").val();
+
+            $.ajax({
+                url: "menu/edit.json",
+                type: "post",
+                "data": {
+                    "id": window.id,
+                    "name": name,
+                    "url": url,
+                    "icon": icon
+                },
+                dataType: "json",
+                success: function (response) {
+                    if (response.result == "SUCCESS") {
+                        layer.msg("操作成功！");
+
+                        // 重新生成树形结构
+                        generateTree();
+                    }
+                    if (response.result == "FAILED") {
+                        layer.msg("操作失败！");
+                    }
+                },
+                error: function (response) {
+                    layer.msg(response.status + " " + response.statusText);
+                }
+
+            });
+
+            // 关闭模态框
+            $("#menuEditModal").modal("hide");
+
+        });
 
     })
 </script>
@@ -102,7 +167,7 @@
     </div>
 </div>
 <%@include file="/WEB-INF/modal-menu-add.jsp" %>
-<%--<%@include file="/WEB-INF/modal-menu-edit.jsp" %>--%>
-<%--<%@include file="/WEB-INF/modal-menu-confirm.jsp" %>--%>
+<%@include file="/WEB-INF/modal-menu-edit.jsp" %>
+<%@include file="/WEB-INF/modal-menu-confirm.jsp" %>
 </body>
 </html>
