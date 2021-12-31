@@ -100,6 +100,11 @@
         from t_admin
         where id = #{id,jdbcType=INTEGER}
     </select>
+    <delete id="deleteOldRelationship" parameterType="java.lang.Integer">
+        delete
+        from inner_admin_role
+        where `admin_id`=#{adminId}
+    </delete>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
         from t_admin

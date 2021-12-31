@@ -30,4 +30,8 @@ public interface RoleMapper {
     int updateByPrimaryKeySelective(Role record);
 
     int updateByPrimaryKey(Role record);
+
+    List<Role> selectAssignedRole(@Param("adminId") Integer adminId);
+
+    List<Role> selectUnassignedRole(@Param("adminId") Integer adminId);
 }

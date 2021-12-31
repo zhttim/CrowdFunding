@@ -113,4 +113,14 @@ public class AdminServiceImpl implements AdminService {
         // 如果一致则返回Admin对象
         return admin;
     }
+
+    @Override
+    public void saveAdminRoleRelationship(Integer adminId, List<Integer> roleIdList) {
+        // 1. 根据adminId删除旧的关联关系数据
+        adminMapper.deleteOldRelationship(adminId);
+        // 2.根据roleIdList和adminId保存新的关联关系
+        if (roleIdList != null && roleIdList.size()>0) {
+            adminMapper.insertNewRelationship(adminId, roleIdList);
+        }
+    }
 }

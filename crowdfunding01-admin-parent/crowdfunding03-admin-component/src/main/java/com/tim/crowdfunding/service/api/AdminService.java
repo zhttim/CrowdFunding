@@ -3,6 +3,8 @@ package com.tim.crowdfunding.service.api;
 import com.github.pagehelper.PageInfo;
 import com.tim.crowdfunding.entity.Admin;
 
+import java.util.List;
+
 public interface AdminService {
 
     void saveAdmin(Admin admin);
@@ -16,4 +18,6 @@ public interface AdminService {
     Admin getAdminById(Integer adminId);
 
     void update(Admin admin);
+
+    void saveAdminRoleRelationship(Integer adminId, List<Integer> roleIdList);
 }
