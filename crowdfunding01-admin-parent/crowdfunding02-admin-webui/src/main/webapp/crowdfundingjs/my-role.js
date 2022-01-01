@@ -1,3 +1,86 @@
+// 声明专门的函数用来在分配Auth的模态框中显示Auth的树形结构数据
+function fillAuthTree() {
+
+    // 发送ajax请求查询Auth数据
+    let ajaxReturn = $.ajax({
+        url: "assign/get/all/auth.json",
+        type: "post",
+        dataType: "json",
+        async: false
+    });
+
+    if (ajaxReturn.status !== 200) {
+        layer.msg("请求处理出错！响应状态码是：" + ajaxReturn.status + " 说明：" + ajaxReturn.statusText);
+        return;
+    }
+
+    // 从响应结果中获取Auth的JSON数据
+    // 从服务器端查询到的 list 不需要组装成树形结构， 这里我们交给 zTree 去组装
+    let authList = ajaxReturn.responseJSON.data;
+
+    // 准备对 zTree 进行设置的 JSON 对象
+    let setting = {
+        data: {
+            simpleData: {
+                // 开启简单JSON功能
+                enable: true,
+
+                // 使用 categoryId属性关联父节点，不用pid
+                pIdKey: "categoryId"
+            },
+            key: {
+                // 使用 title 属性显示节点名称， 不用默认的 name 作为属性名
+                name: "title"
+            }
+        },
+        check: {
+            enable: true
+        }
+    };
+
+    // 生成树形结构
+    $.fn.zTree.init($("#authTreeDemo"), setting, authList);
+
+    // 获取 zTreeObj 对象
+    let zTreeObj = $.fn.zTree.getZTreeObj("authTreeDemo");
+
+    // 调用 zTreeObj 对象的方法， 把节点展开
+    zTreeObj.expandAll(true);
+
+    // 查询已分配的Auth的id组成的数组
+    console.log("window.roleId=" + window.roleId)
+    ajaxReturn = $.ajax({
+        url: "assign/get/assigned/auth/id/by/role/id.json",
+        type: "post",
+        data: {
+            roleId: window.roleId
+        },
+        dataType: "json",
+        async: false
+    });
+    if (ajaxReturn.status !== 200) {
+        layer.msg(" 请 求 处 理 出 错 ！ 响 应 状 态 码 是 ： " + ajaxReturn.status + " 说 明 是 ：" + ajaxReturn.statusText);
+        return;
+    }
+// 从响应结果中获取 authIdArray
+    let authIdArray = ajaxReturn.responseJSON.data;
+
+// 根据 authIdArray 把树形结构中对应的节点勾选上
+// ①遍历 authIdArray
+    for (let i = 0; i < authIdArray.length; i++) {
+        let authId = authIdArray[i];
+        // ②根据 id 查询树形结构中对应的节点
+        let treeNode = zTreeObj.getNodeByParam("id", authId);
+        // ③将 treeNode 设置为被勾选
+        // checked 设置为 true 表示节点勾选
+        let checked = true;
+        // checkTypeFlag 设置为 false， 表示不“联动”， 不联动是为了避免把不该勾选的勾选上
+        let checkTypeFlag = false;
+        // 执行
+        zTreeObj.checkNode(treeNode, checked, checkTypeFlag);
+    }
+}
+
 // 执行分页操作
 function generatePage() {
     // 获取分页数据
@@ -62,7 +145,7 @@ function fillTableBody(pageInfo) {
         let checkboxTd = "<td><input class='itemBox' id='" + roleId + "' type='checkbox'></td>";
         let roleNameTd = "<td>" + roleName + "</td>";
 
-        let checkBtn = "<button type=\"button\" class=\"btn btn-success btn-xs\"><i class=\" glyphicon glyphicon-check\"></i></button>";
+        let checkBtn = "<button id='" + roleId + "' type=\"button\" class=\"btn btn-success btn-xs checkBtn\"><i class=\" glyphicon glyphicon-check\"></i></button>";
         let pencilBtn = "<button id='" + roleId + "'type='button' class='btn btn-primary btn-xs pencilBtn'><i class='glyphicon glyphicon-pencil'></i></button>";
         let removeBtn = "<button id='" + roleId + "' type=\"button\" class=\"btn btn-danger btn-xs removeBtn\"><i class=\" glyphicon glyphicon-remove\"></i></button>";
 
