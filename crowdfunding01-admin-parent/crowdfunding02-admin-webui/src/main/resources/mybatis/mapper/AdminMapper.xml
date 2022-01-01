@@ -77,8 +77,8 @@
         <include refid="Base_Column_List"/>
         from t_admin
         where login_acct like concat('%',#{keyword},'%') or
-              user_name like concat('%',#{keyword},'%') or
-              email like concat('%',#{keyword},'%')
+        user_name like concat('%',#{keyword},'%') or
+        email like concat('%',#{keyword},'%')
     </select>
     <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tim.crowdfunding.entity.AdminExample">
         select
@@ -103,7 +103,7 @@
     <delete id="deleteOldRelationship" parameterType="java.lang.Integer">
         delete
         from inner_admin_role
-        where `admin_id`=#{adminId}
+        where `admin_id` = #{adminId}
     </delete>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
@@ -116,6 +116,13 @@
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
+    <insert id="insertNewRelationship" parameterType="java.lang.Integer">
+        insert into inner_admin_role(`admin_id`,`role_id`)
+        values
+        <foreach collection="roleIdList" item="roleId" separator=",">
+            (#{adminId},#{roleId})
+        </foreach>
+    </insert>
     <insert id="insert" parameterType="com.tim.crowdfunding.entity.Admin">
         insert into t_admin (id, login_acct, user_pswd,
                              user_name, email, create_time)

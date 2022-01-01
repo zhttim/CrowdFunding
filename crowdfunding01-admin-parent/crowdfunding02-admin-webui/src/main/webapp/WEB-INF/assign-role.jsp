@@ -28,6 +28,10 @@
         $("#toLeftBtn").click(function () {
             $("select:eq(1)>option:selected").appendTo("select:eq(0)");
         });
+        //提交表单所有选项
+        $("#submitBtn").click(function () {
+            $("select:eq(1)>option").prop("selected","selected");
+        });
     })
 </script>
 
@@ -74,7 +78,7 @@
                             </select>
                         </div>
                         <br/><br><br>
-                        <button type="submit" style="width: 150px;" class="btn btn-lg btn-success btn-block">提交</button>
+                        <button id="submitBtn" type="submit" style="width: 150px;" class="btn btn-lg btn-success btn-block">提交</button>
                     </form>
                 </div>
             </div>
