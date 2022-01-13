@@ -13,6 +13,8 @@ import com.tim.crwodfunding.exception.LoginFailedException;
 import com.tim.crwodfunding.util.CrowdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -25,6 +27,29 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AdminMapper adminMapper;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Override
+    public Admin getAdminByLoginAcct(String loginAcct) {
+        AdminExample adminExample = new AdminExample();
+        AdminExample.Criteria criteria = adminExample.createCriteria();
+        criteria.andLoginAcctEqualTo(loginAcct);
+        List<Admin> adminList = adminMapper.selectByExample(adminExample);
+        if (adminList == null || adminList.isEmpty()) {
+            throw new LoginFailedException(CrowdConstant.MESSAGE_LOGIN_FAILED);
+        }
+        if (adminList.size() > 1) {
+            throw new RuntimeException(CrowdConstant.MESSAGE_SYSTEM_ERROR_LOGIN_NOT_UNIQUE);
+        }
+        //从adminList中取出admin
+        Admin admin = adminList.get(0);
+
+        if (admin == null) {
+            throw new LoginFailedException(CrowdConstant.MESSAGE_LOGIN_FAILED);
+        }
+        return admin;
+    }
 
     @Override
     public void update(Admin admin) {
@@ -63,7 +88,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void saveAdmin(Admin admin) {
         // 密码加密
-        admin.setUserPswd(CrowdUtil.md5(admin.getUserPswd()));
+        admin.setUserPswd(bCryptPasswordEncoder.encode(admin.getUserPswd()));
         //设置创建时间
         String createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         admin.setCreateTime(createTime);
@@ -119,7 +144,7 @@ public class AdminServiceImpl implements AdminService {
         // 1. 根据adminId删除旧的关联关系数据
         adminMapper.deleteOldRelationship(adminId);
         // 2.根据roleIdList和adminId保存新的关联关系
-        if (roleIdList != null && roleIdList.size()>0) {
+        if (roleIdList != null && !roleIdList.isEmpty()) {
             adminMapper.insertNewRelationship(adminId, roleIdList);
         }
     }

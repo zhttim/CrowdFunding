@@ -21,9 +21,9 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <!-- 声明属性，对 Spring 的版本进行统一管理 -->
-        <atguigu.spring.version>4.3.20.RELEASE</atguigu.spring.version>
+        <spring.version>4.3.20.RELEASE</spring.version>
         <!-- 声明属性，对 SpringSecurity 的版本进行统一管理 -->
-        <atguigu.spring.security.version>4.2.10.RELEASE</atguigu.spring.security.version>
+        <spring.security.version>4.2.10.RELEASE</spring.security.version>
     </properties>
 
     <dependencyManagement>
@@ -33,18 +33,18 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-orm</artifactId>
-                <version>${atguigu.spring.version}</version>
+                <version>${spring.version}</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-webmvc</artifactId>
-                <version>${atguigu.spring.version}</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
-                <version>${atguigu.spring.version}</version>
+                <version>${spring.version}</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
             <dependency>
@@ -159,19 +159,19 @@
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-web</artifactId>
-                <version>4.2.10.RELEASE</version>
+                <version>${spring.security.version}</version>
             </dependency>
             <!-- SpringSecurity 配置 -->
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-config</artifactId>
-                <version>4.2.10.RELEASE</version>
+                <version>${spring.security.version}</version>
             </dependency>
             <!-- SpringSecurity 标签库 -->
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-taglibs</artifactId>
-                <version>4.2.10.RELEASE</version>
+                <version>${spring.security.version}</version>
             </dependency>
             <!--引入jquery-->
             <dependency>

@@ -16,6 +16,11 @@ public class AuthServiceImpl implements AuthService {
     private AuthMapper authMapper;
 
     @Override
+    public List<String> getAssignedAuthNameByAdminId(Integer adminId) {
+        return authMapper.selectAssignedAuthNameByAdminId(adminId);
+    }
+
+    @Override
     public void saveRoleAuthRelationship(Map<String, List<Integer>> roleAuthRelationshipMap) {
         List<Integer> roleIdList = roleAuthRelationshipMap.get("roleId");
         Integer roleId = roleIdList.get(0);

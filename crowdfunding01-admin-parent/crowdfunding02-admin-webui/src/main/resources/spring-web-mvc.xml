@@ -35,16 +35,16 @@
     <mvc:view-controller path="/role/to/page.html" view-name="role-page"/>
     <mvc:view-controller path="/menu/to/page.html" view-name="menu-page"/>
     
-    <!--注册拦截器-->
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <!--要拦截的路径-->
-            <!-- /*对应一层路径 /**对应多层路径-->
-            <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/admin/to/login/page.html"/>
-            <mvc:exclude-mapping path="/admin/do/login.html"/>
-            <mvc:exclude-mapping path="/admin/do/logout.html"/>
-            <ref bean="loginInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
+<!--    注册拦截器-->
+<!--    <mvc:interceptors>-->
+<!--        <mvc:interceptor>-->
+<!--            要拦截的路径-->
+<!--             /*对应一层路径 /**对应多层路径-->
+<!--            <mvc:mapping path="/**"/>-->
+<!--            <mvc:exclude-mapping path="/admin/to/login/page.html"/>-->
+<!--            <mvc:exclude-mapping path="/admin/do/login.html"/>-->
+<!--            <mvc:exclude-mapping path="/admin/do/logout.html"/>-->
+<!--            <ref bean="loginInterceptor"/>-->
+<!--        </mvc:interceptor>-->
+<!--    </mvc:interceptors>-->
 </beans>

@@ -21,6 +21,8 @@
         <!-- 装配数据源 -->
         <property name="dataSource" ref="dataSource"/>
     </bean>
+    <!-- 配置 BCryptPasswordEncoder -->
+    <bean id="BCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
     <!--配置AOP-->
     <aop:config>
         <!--考虑到后面整合SpringSecurity，避免把UserDetailService加入事务控制。让切入点表达式定位到ServiceImpl而不是Service-->
