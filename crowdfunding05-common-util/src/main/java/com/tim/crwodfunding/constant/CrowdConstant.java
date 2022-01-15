@@ -10,4 +10,5 @@ public class CrowdConstant {
     public static final String MESSAGE_SYSTEM_ERROR_LOGIN_NOT_UNIQUE = "系统错误，登陆账号不唯一!";
     public static final String ATTR_NAME_PAGE_INFO = "pageInfo";
     public static final String ATTR_NAME_ADMIN = "admin";
+    public static final String MESSAGE_ACCESS_DENIED = "对不起，您没有访问权限";
 }

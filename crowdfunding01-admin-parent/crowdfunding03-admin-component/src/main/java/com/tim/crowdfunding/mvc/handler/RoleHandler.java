@@ -5,6 +5,7 @@ import com.tim.crowdfunding.entity.Role;
 import com.tim.crowdfunding.service.api.RoleService;
 import com.tim.crwodfunding.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ public class RoleHandler {
     private RoleService roleService;
 
     //    @ResponseBody
+    @PreAuthorize("hasRole('部长')")
     @RequestMapping("role/get/page/info.json")
     public ResultEntity<PageInfo<Role>> getPageInfo(
             @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,

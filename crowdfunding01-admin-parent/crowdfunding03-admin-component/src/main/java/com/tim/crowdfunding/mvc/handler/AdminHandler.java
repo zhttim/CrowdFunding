@@ -5,6 +5,7 @@ import com.tim.crowdfunding.entity.Admin;
 import com.tim.crowdfunding.service.api.AdminService;
 import com.tim.crwodfunding.constant.CrowdConstant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,6 +52,7 @@ public class AdminHandler {
         return "redirect:/admin/get/page.html?pageNum=" + pageNum + "&keyword=" + keyword;
     }
 
+    @PreAuthorize("hasAuthority('user:save')")
     @RequestMapping("admin/save.html")
     public String save(Admin admin) {
         //添加用户数据
