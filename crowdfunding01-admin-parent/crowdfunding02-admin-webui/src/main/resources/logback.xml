@@ -16,5 +16,5 @@
         <appender-ref ref="STDOUT"/>
     </root>
     <!-- 根据特殊需求指定局部日志级别 -->
-    <logger name="com.tim.crowdfunding.mapper" level="DEBUG"/>
+    <logger name="com.tim.crowdfunding.timmapper" level="DEBUG"/>
 </configuration>
