@@ -1,0 +1,16 @@
+server:
+  port: 80
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1000/eureka
+spring:
+  application:
+    name: tim-crowd-zuul
+zuul:
+  routes:
+    crowd-portal:
+      service-id: tim-crowd-auth
+      path: /**
+  ignored-services: "*"
+  sensitive-headers: "*"
