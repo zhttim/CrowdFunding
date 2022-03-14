@@ -1085,13 +1085,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this._zr.flush(true);
 	        }
 	        else if (opt.flush !== false && env.browser.weChat) {
-	            // In WeChat embeded browser, `requestAnimationFrame` and `setInterval`
-	            // hang when sliding page (on touch event), which cause that zr does not
-	            // refresh util user interaction finished, which is not expected.
-	            // But `dispatchAction` may be called too frequently when pan on touch
-	            // screen, which impacts performance if do not throttle them.
-	            this._throttledZrFlush();
-	        }
+                // In WeChat embeded browser, `requestAnimationFrame` and `setInterval`
+                // hang when sliding page (on touch event), which cause that zr does not
+                // refresh aliyun.api.gateway.demo.util user interaction finished, which is not expected.
+                // But `dispatchAction` may be called too frequently when pan on touch
+                // screen, which impacts performance if do not throttle them.
+                this._throttledZrFlush();
+            }
 
 	        flushPendingActions.call(this, opt.silent);
 
@@ -3130,10 +3130,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var _ctx;
 	    function getContext() {
 	        if (!_ctx) {
-	            // Use util.createCanvas instead of createCanvas
-	            // because createCanvas may be overwritten in different environment
-	            _ctx = util.createCanvas().getContext('2d');
-	        }
+                // Use aliyun.api.gateway.demo.util.createCanvas instead of createCanvas
+                // because createCanvas may be overwritten in different environment
+                _ctx = util.createCanvas().getContext('2d');
+            }
 	        return _ctx;
 	    }
 
@@ -3477,28 +3477,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	        constructor: HashMap,
 	        // Do not provide `has` method to avoid defining what is `has`.
 	        // (We usually treat `null` and `undefined` as the same, different
-	        // from ES6 Map).
-	        get: function (key) {
-	            return this[HASH_MAP_PREFIX + key];
-	        },
-	        set: function (key, value) {
-	            this[HASH_MAP_PREFIX + key] = value;
-	            // Comparing with invocation chaining, `return value` is more commonly
-	            // used in this case: `var someVal = map.set('a', genVal());`
-	            return value;
-	        },
-	        // Although util.each can be performed on this hashMap directly, user
-	        // should not use the exposed keys, who are prefixed.
-	        each: function (cb, context) {
-	            context !== void 0 && (cb = bind(cb, context));
-	            for (var prefixedKey in this) {
-	                this.hasOwnProperty(prefixedKey)
-	                    && cb(this[prefixedKey], prefixedKey.slice(HASH_MAP_PREFIX_LENGTH));
-	            }
-	        },
-	        // Do not use this method if performance sensitive.
-	        removeKey: function (key) {
-	            delete this[key];
+            // from ES6 Map).
+            get: function (key) {
+                return this[HASH_MAP_PREFIX + key];
+            },
+            set: function (key, value) {
+                this[HASH_MAP_PREFIX + key] = value;
+                // Comparing with invocation chaining, `return value` is more commonly
+                // used in this case: `var someVal = map.set('a', genVal());`
+                return value;
+            },
+            // Although aliyun.api.gateway.demo.util.each can be performed on this hashMap directly, user
+            // should not use the exposed keys, who are prefixed.
+            each: function (cb, context) {
+                context !== void 0 && (cb = bind(cb, context));
+                for (var prefixedKey in this) {
+                    this.hasOwnProperty(prefixedKey)
+                    && cb(this[prefixedKey], prefixedKey.slice(HASH_MAP_PREFIX_LENGTH));
+                }
+            },
+            // Do not use this method if performance sensitive.
+            removeKey: function (key) {
+                delete this[key];
 	        }
 	    };
 
@@ -4290,33 +4290,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 
-	    /**
-	     * @param {string} str
-	     * @return {string}
-	     * @inner
-	     */
-	    var s2d = function (str) {
-	        return str < 10 ? ('0' + str) : str;
-	    };
+            /**
+             * @param {string} str
+             * @return {string}
+             * @inner
+             */
+            var s2d = function (str) {
+                return str < 10 ? ('0' + str) : str;
+            };
 
-	    /**
-	     * ISO Date format
-	     * @param {string} tpl
-	     * @param {number} value
-	     * @param {boolean} [isUTC=false] Default in local time.
-	     *           see `module:echarts/scale/Time`
-	     *           and `module:echarts/util/number#parseDate`.
-	     * @inner
-	     */
-	    formatUtil.formatTime = function (tpl, value, isUTC) {
-	        if (tpl === 'week'
-	            || tpl === 'month'
-	            || tpl === 'quarter'
-	            || tpl === 'half-year'
-	            || tpl === 'year'
-	        ) {
-	            tpl = 'MM-dd\nyyyy';
-	        }
+            /**
+             * ISO Date format
+             * @param {string} tpl
+             * @param {number} value
+             * @param {boolean} [isUTC=false] Default in local time.
+             *           see `module:echarts/scale/Time`
+             *           and `module:echarts/aliyun.api.gateway.demo.util/number#parseDate`.
+             * @inner
+             */
+            formatUtil.formatTime = function (tpl, value, isUTC) {
+                if (tpl === 'week'
+                    || tpl === 'month'
+                    || tpl === 'quarter'
+                    || tpl === 'half-year'
+                    || tpl === 'year'
+                ) {
+                    tpl = 'MM-dd\nyyyy';
+                }
 
 	        var date = numberUtil.parseDate(value);
 	        var utc = isUTC ? 'UTC' : '';
@@ -4369,47 +4369,46 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 
-	    var number = {};
+    var number = {};
 
-	    var RADIAN_EPSILON = 1e-4;
+            var RADIAN_EPSILON = 1e-4;
 
-	    function _trim(str) {
-	        return str.replace(/^\s+/, '').replace(/\s+$/, '');
-	    }
+            function _trim(str) {
+                return str.replace(/^\s+/, '').replace(/\s+$/, '');
+            }
 
-	    /**
-	     * Linear mapping a value from domain to range
-	     * @memberOf module:echarts/util/number
-	     * @param  {(number|Array.<number>)} val
-	     * @param  {Array.<number>} domain Domain extent domain[0] can be bigger than domain[1]
-	     * @param  {Array.<number>} range  Range extent range[0] can be bigger than range[1]
-	     * @param  {boolean} clamp
-	     * @return {(number|Array.<number>}
-	     */
-	    number.linearMap = function (val, domain, range, clamp) {
-	        var subDomain = domain[1] - domain[0];
-	        var subRange = range[1] - range[0];
+            /**
+             * Linear mapping a value from domain to range
+             * @memberOf module:echarts/aliyun.api.gateway.demo.util/number
+             * @param  {(number|Array.<number>)} val
+             * @param  {Array.<number>} domain Domain extent domain[0] can be bigger than domain[1]
+             * @param  {Array.<number>} range  Range extent range[0] can be bigger than range[1]
+             * @param  {boolean} clamp
+             * @return {(number|Array.<number>}
+             */
+            number.linearMap = function (val, domain, range, clamp) {
+                var subDomain = domain[1] - domain[0];
+                var subRange = range[1] - range[0];
 
-	        if (subDomain === 0) {
-	            return subRange === 0
-	                ? range[0]
-	                : (range[0] + range[1]) / 2;
-	        }
+                if (subDomain === 0) {
+                    return subRange === 0
+                        ? range[0]
+                        : (range[0] + range[1]) / 2;
+                }
 
-	        // Avoid accuracy problem in edge, such as
-	        // 146.39 - 62.83 === 83.55999999999999.
-	        // See echarts/test/ut/spec/util/number.js#linearMap#accuracyError
-	        // It is a little verbose for efficiency considering this method
-	        // is a hotspot.
-	        if (clamp) {
-	            if (subDomain > 0) {
-	                if (val <= domain[0]) {
-	                    return range[0];
-	                }
-	                else if (val >= domain[1]) {
-	                    return range[1];
-	                }
-	            }
+                // Avoid accuracy problem in edge, such as
+                // 146.39 - 62.83 === 83.55999999999999.
+                // See echarts/test/ut/spec/aliyun.api.gateway.demo.util/number.js#linearMap#accuracyError
+                // It is a little verbose for efficiency considering this method
+                // is a hotspot.
+                if (clamp) {
+                    if (subDomain > 0) {
+                        if (val <= domain[0]) {
+                            return range[0];
+                        } else if (val >= domain[1]) {
+                            return range[1];
+                        }
+                    }
 	            else {
 	                if (val >= domain[0]) {
 	                    return range[0];
@@ -4421,34 +4420,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        else {
 	            if (val === domain[0]) {
-	                return range[0];
-	            }
-	            if (val === domain[1]) {
-	                return range[1];
-	            }
-	        }
+                    return range[0];
+                }
+                    if (val === domain[1]) {
+                        return range[1];
+                    }
+                }
 
-	        return (val - domain[0]) / subDomain * subRange + range[0];
-	    };
+                return (val - domain[0]) / subDomain * subRange + range[0];
+            };
 
-	    /**
-	     * Convert a percent string to absolute number.
-	     * Returns NaN if percent is not a valid string or number
-	     * @memberOf module:echarts/util/number
-	     * @param {string|number} percent
-	     * @param {number} all
-	     * @return {number}
-	     */
-	    number.parsePercent = function(percent, all) {
-	        switch (percent) {
-	            case 'center':
-	            case 'middle':
-	                percent = '50%';
-	                break;
-	            case 'left':
-	            case 'top':
-	                percent = '0%';
-	                break;
+            /**
+             * Convert a percent string to absolute number.
+             * Returns NaN if percent is not a valid string or number
+             * @memberOf module:echarts/aliyun.api.gateway.demo.util/number
+             * @param {string|number} percent
+             * @param {number} all
+             * @return {number}
+             */
+            number.parsePercent = function (percent, all) {
+                switch (percent) {
+                    case 'center':
+                    case 'middle':
+                        percent = '50%';
+                        break;
+                    case 'left':
+                    case 'top':
+                        percent = '0%';
+                        break;
 	            case 'right':
 	            case 'bottom':
 	                percent = '100%';
@@ -16896,32 +16895,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var vec2 = __webpack_require__(10);
 
 	    /**
-	     * @inner
-	     */
-	    function interpolate(p0, p1, p2, p3, t, t2, t3) {
-	        var v0 = (p2 - p0) * 0.5;
-	        var v1 = (p3 - p1) * 0.5;
-	        return (2 * (p1 - p2) + v0 + v1) * t3
-	                + (-3 * (p1 - p2) - 2 * v0 - v1) * t2
-	                + v0 * t + p1;
-	    }
+         * @inner
+         */
+        function interpolate(p0, p1, p2, p3, t, t2, t3) {
+            var v0 = (p2 - p0) * 0.5;
+            var v1 = (p3 - p1) * 0.5;
+            return (2 * (p1 - p2) + v0 + v1) * t3
+                + (-3 * (p1 - p2) - 2 * v0 - v1) * t2
+                + v0 * t + p1;
+        }
 
-	    /**
-	     * @alias module:zrender/shape/util/smoothSpline
-	     * @param {Array} points 线段顶点数组
-	     * @param {boolean} isLoop
-	     * @return {Array}
-	     */
-	    module.exports = function (points, isLoop) {
-	        var len = points.length;
-	        var ret = [];
+            /**
+             * @alias module:zrender/shape/aliyun.api.gateway.demo.util/smoothSpline
+             * @param {Array} points 线段顶点数组
+             * @param {boolean} isLoop
+             * @return {Array}
+             */
+            module.exports = function (points, isLoop) {
+                var len = points.length;
+                var ret = [];
 
-	        var distance = 0;
-	        for (var i = 1; i < len; i++) {
-	            distance += vec2.distance(points[i - 1], points[i]);
-	        }
+                var distance = 0;
+                for (var i = 1; i < len; i++) {
+                    distance += vec2.distance(points[i - 1], points[i]);
+                }
 
-	        var segs = distance / 2;
+                var segs = distance / 2;
 	        segs = segs < len ? len : segs;
 	        for (var i = 0; i < segs; i++) {
 	            var pos = i / (segs - 1) * (isLoop ? len : len - 1);
@@ -16967,37 +16966,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @author pissang (https://www.github.com/pissang)
 	 *         Kener (@Kener-林峰, kener.linfeng@gmail.com)
 	 *         errorrik (errorrik@gmail.com)
-	 */
+     */
 
 
-	    var vec2 = __webpack_require__(10);
-	    var v2Min = vec2.min;
-	    var v2Max = vec2.max;
-	    var v2Scale = vec2.scale;
-	    var v2Distance = vec2.distance;
-	    var v2Add = vec2.add;
+    var vec2 = __webpack_require__(10);
+            var v2Min = vec2.min;
+            var v2Max = vec2.max;
+            var v2Scale = vec2.scale;
+            var v2Distance = vec2.distance;
+            var v2Add = vec2.add;
 
-	    /**
-	     * 贝塞尔平滑曲线
-	     * @alias module:zrender/shape/util/smoothBezier
-	     * @param {Array} points 线段顶点数组
-	     * @param {number} smooth 平滑等级, 0-1
-	     * @param {boolean} isLoop
-	     * @param {Array} constraint 将计算出来的控制点约束在一个包围盒内
-	     *                           比如 [[0, 0], [100, 100]], 这个包围盒会与
-	     *                           整个折线的包围盒做一个并集用来约束控制点。
-	     * @param {Array} 计算出来的控制点数组
-	     */
-	    module.exports = function (points, smooth, isLoop, constraint) {
-	        var cps = [];
+            /**
+             * 贝塞尔平滑曲线
+             * @alias module:zrender/shape/aliyun.api.gateway.demo.util/smoothBezier
+             * @param {Array} points 线段顶点数组
+             * @param {number} smooth 平滑等级, 0-1
+             * @param {boolean} isLoop
+             * @param {Array} constraint 将计算出来的控制点约束在一个包围盒内
+             *                           比如 [[0, 0], [100, 100]], 这个包围盒会与
+             *                           整个折线的包围盒做一个并集用来约束控制点。
+             * @param {Array} 计算出来的控制点数组
+             */
+            module.exports = function (points, smooth, isLoop, constraint) {
+                var cps = [];
 
-	        var v = [];
-	        var v1 = [];
-	        var v2 = [];
-	        var prevPoint;
-	        var nextPoint;
+                var v = [];
+                var v1 = [];
+                var v2 = [];
+                var prevPoint;
+                var nextPoint;
 
-	        var min, max;
+                var min, max;
 	        if (constraint) {
 	            min = [Infinity, Infinity];
 	            max = [-Infinity, -Infinity];
@@ -35418,19 +35417,18 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
-	
 
-	    // var zrUtil = require('zrender/lib/core/util');
-	    var graphic = __webpack_require__(44);
+            // var zrUtil = require('zrender/lib/core/aliyun.api.gateway.demo.util');
+            var graphic = __webpack_require__(44);
 
-	    var MapDraw = __webpack_require__(181);
+            var MapDraw = __webpack_require__(181);
 
-	    __webpack_require__(1).extendChartView({
+            __webpack_require__(1).extendChartView({
 
-	        type: 'map',
+                type: 'map',
 
-	        render: function (mapModel, ecModel, api, payload) {
-	            // Not render if it is an toggleSelect action from self
+                render: function (mapModel, ecModel, api, payload) {
+                    // Not render if it is an toggleSelect action from self
 	            if (payload && payload.type === 'mapToggleSelect'
 	                && payload.from === this.uid
 	            ) {
@@ -59722,65 +59720,65 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var indexOf = zrUtil.indexOf;
 	    var curry = zrUtil.curry;
 
-	    var COORD_CONVERTS = ['dataToPoint', 'pointToData'];
+            var COORD_CONVERTS = ['dataToPoint', 'pointToData'];
 
-	    // FIXME
-	    // how to genarialize to more coordinate systems.
-	    var INCLUDE_FINDER_MAIN_TYPES = [
-	        'grid', 'xAxis', 'yAxis', 'geo', 'graph',
-	        'polar', 'radiusAxis', 'angleAxis', 'bmap'
-	    ];
+            // FIXME
+            // how to genarialize to more coordinate systems.
+            var INCLUDE_FINDER_MAIN_TYPES = [
+                'grid', 'xAxis', 'yAxis', 'geo', 'graph',
+                'polar', 'radiusAxis', 'angleAxis', 'bmap'
+            ];
 
-	    /**
-	     * [option in constructor]:
-	     * {
-	     *     Index/Id/Name of geo, xAxis, yAxis, grid: See util/model#parseFinder.
-	     * }
-	     *
-	     *
-	     * [targetInfo]:
-	     *
-	     * There can be multiple axes in a single targetInfo. Consider the case
-	     * of `grid` component, a targetInfo represents a grid which contains one or more
-	     * cartesian and one or more axes. And consider the case of parallel system,
-	     * which has multiple axes in a coordinate system.
-	     * Can be {
-	     *     panelId: ...,
-	     *     coordSys: <a representitive cartesian in grid (first cartesian by default)>,
-	     *     coordSyses: all cartesians.
-	     *     gridModel: <grid component>
-	     *     xAxes: correspond to coordSyses on index
-	     *     yAxes: correspond to coordSyses on index
-	     * }
-	     * or {
-	     *     panelId: ...,
-	     *     coordSys: <geo coord sys>
-	     *     coordSyses: [<geo coord sys>]
-	     *     geoModel: <geo component>
-	     * }
-	     *
-	     *
-	     * [panelOpt]:
-	     *
-	     * Make from targetInfo. Input to BrushController.
-	     * {
-	     *     panelId: ...,
-	     *     rect: ...
-	     * }
-	     *
-	     *
-	     * [area]:
-	     *
-	     * Generated by BrushController or user input.
-	     * {
-	     *     panelId: Used to locate coordInfo directly. If user inpput, no panelId.
-	     *     brushType: determine how to convert to/from coord('rect' or 'polygon' or 'lineX/Y').
-	     *     Index/Id/Name of geo, xAxis, yAxis, grid: See util/model#parseFinder.
-	     *     range: pixel range.
-	     *     coordRange: representitive coord range (the first one of coordRanges).
-	     *     coordRanges: <Array> coord ranges, used in multiple cartesian in one grid.
-	     * }
-	     */
+            /**
+             * [option in constructor]:
+             * {
+             *     Index/Id/Name of geo, xAxis, yAxis, grid: See aliyun.api.gateway.demo.util/model#parseFinder.
+             * }
+             *
+             *
+             * [targetInfo]:
+             *
+             * There can be multiple axes in a single targetInfo. Consider the case
+             * of `grid` component, a targetInfo represents a grid which contains one or more
+             * cartesian and one or more axes. And consider the case of parallel system,
+             * which has multiple axes in a coordinate system.
+             * Can be {
+             *     panelId: ...,
+             *     coordSys: <a representitive cartesian in grid (first cartesian by default)>,
+             *     coordSyses: all cartesians.
+             *     gridModel: <grid component>
+             *     xAxes: correspond to coordSyses on index
+             *     yAxes: correspond to coordSyses on index
+             * }
+             * or {
+             *     panelId: ...,
+             *     coordSys: <geo coord sys>
+             *     coordSyses: [<geo coord sys>]
+             *     geoModel: <geo component>
+             * }
+             *
+             *
+             * [panelOpt]:
+             *
+             * Make from targetInfo. Input to BrushController.
+             * {
+             *     panelId: ...,
+             *     rect: ...
+             * }
+             *
+             *
+             * [area]:
+             *
+             * Generated by BrushController or user input.
+             * {
+             *     panelId: Used to locate coordInfo directly. If user inpput, no panelId.
+             *     brushType: determine how to convert to/from coord('rect' or 'polygon' or 'lineX/Y').
+             *     Index/Id/Name of geo, xAxis, yAxis, grid: See aliyun.api.gateway.demo.util/model#parseFinder.
+             *     range: pixel range.
+             *     coordRange: representitive coord range (the first one of coordRanges).
+             *     coordRanges: <Array> coord ranges, used in multiple cartesian in one grid.
+             * }
+             */
 
 	    /**
 	     * @param {Object} option contains Index/Id/Name of xAxis/yAxis/geo/grid
@@ -64772,19 +64770,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	         * @protected
 	         */
 	        defaultOption: {
-	            align: 'auto',          // 'auto', 'left', 'right', 'top', 'bottom'
-	            calculable: false,      // This prop effect default component type determine,
-	                                    // See echarts/component/visualMap/typeDefaulter.
-	            range: null,            // selected range. In default case `range` is [min, max]
-	                                    // and can auto change along with modification of min max,
-	                                    // util use specifid a range.
-	            realtime: true,         // Whether realtime update.
-	            itemHeight: null,       // The length of the range control edge.
-	            itemWidth: null,        // The length of the other side.
-	            hoverLink: true,        // Enable hover highlight.
-	            hoverLinkDataSize: null,// The size of hovered data.
-	            hoverLinkOnHandle: true // Whether trigger hoverLink when hover handle.
-	        },
+                align: 'auto',          // 'auto', 'left', 'right', 'top', 'bottom'
+                calculable: false,      // This prop effect default component type determine,
+                                        // See echarts/component/visualMap/typeDefaulter.
+                range: null,            // selected range. In default case `range` is [min, max]
+                                        // and can auto change along with modification of min max,
+                                        // aliyun.api.gateway.demo.util use specifid a range.
+                realtime: true,         // Whether realtime update.
+                itemHeight: null,       // The length of the range control edge.
+                itemWidth: null,        // The length of the other side.
+                hoverLink: true,        // Enable hover highlight.
+                hoverLinkDataSize: null,// The size of hovered data.
+                hoverLinkOnHandle: true // Whether trigger hoverLink when hover handle.
+            },
 
 	        /**
 	         * @override
@@ -65497,33 +65495,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 	        setSelected: noop,
 
-	        /**
-	         * @public
-	         * @abstract
-	         * @param {*|module:echarts/data/List} valueOrData
-	         * @param {number} dataIndex
-	         * @return {string} state See this.stateList
-	         */
-	        getValueState: noop,
+            /**
+             * @public
+             * @abstract
+             * @param {*|module:echarts/data/List} valueOrData
+             * @param {number} dataIndex
+             * @return {string} state See this.stateList
+             */
+            getValueState: noop,
 
-	        /**
-	         * FIXME
-	         * Do not publish to thirt-part-dev temporarily
-	         * util the interface is stable. (Should it return
-	         * a function but not visual meta?)
-	         *
-	         * @pubilc
-	         * @abstract
-	         * @param {Function} getColorVisual
-	         *        params: value, valueState
-	         *        return: color
-	         * @return {Object} visualMeta
-	         *        should includes {stops, outerColors}
-	         *        outerColor means [colorBeyondMinValue, colorBeyondMaxValue]
-	         */
-	        getVisualMeta: noop
+            /**
+             * FIXME
+             * Do not publish to thirt-part-dev temporarily
+             * aliyun.api.gateway.demo.util the interface is stable. (Should it return
+             * a function but not visual meta?)
+             *
+             * @pubilc
+             * @abstract
+             * @param {Function} getColorVisual
+             *        params: value, valueState
+             *        return: color
+             * @return {Object} visualMeta
+             *        should includes {stops, outerColors}
+             *        outerColor means [colorBeyondMinValue, colorBeyondMaxValue]
+             */
+            getVisualMeta: noop
 
-	    });
+        });
 
 	    module.exports = VisualMapModel;
 
@@ -70108,19 +70106,19 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 402 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * @file Timeline view
-	 */
+            /**
+             * @file Timeline view
+             */
 
 
-	    // var zrUtil = require('zrender/lib/core/util');
-	    // var graphic = require('../../util/graphic');
-	    var ComponentView = __webpack_require__(29);
+                // var zrUtil = require('zrender/lib/core/aliyun.api.gateway.demo.util');
+                // var graphic = require('../../aliyun.api.gateway.demo.util/graphic');
+            var ComponentView = __webpack_require__(29);
 
-	    module.exports = ComponentView.extend({
+            module.exports = ComponentView.extend({
 
-	        type: 'timeline'
-	    });
+                type: 'timeline'
+            });
 
 
 

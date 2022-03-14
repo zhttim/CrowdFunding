@@ -6,4 +6,6 @@ import org.apache.ibatis.annotations.Param;
 public interface MemberService {
 
     MemberPO getMemberPObyLoginAcct(@Param("loginacct") String loginacct);
+
+    void saveMember(MemberPO memberPO);
 }

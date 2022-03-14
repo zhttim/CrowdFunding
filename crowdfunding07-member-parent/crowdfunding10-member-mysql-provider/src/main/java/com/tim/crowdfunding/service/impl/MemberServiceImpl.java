@@ -6,6 +6,7 @@ import com.tim.crowdfunding.mapper.MemberPOMapper;
 import com.tim.crowdfunding.service.api.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -23,5 +24,11 @@ public class MemberServiceImpl implements MemberService {
         criteria.andLoginacctEqualTo(loginacct);
         List<MemberPO> memberPOList = memberPOMapper.selectByExample(memberPOExample);
         return memberPOList.get(0);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class, readOnly = false)
+    @Override
+    public void saveMember(MemberPO memberPO) {
+        memberPOMapper.insertSelective(memberPO);
     }
 }
