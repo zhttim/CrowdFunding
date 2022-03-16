@@ -15,4 +15,5 @@ public class CrowdConstant {
     public static final String ATTR_NAME_MESSAGE = "message";
     public static final String MESSAGE_CODE_NOT_EXISTS = "验证码已过期， 请重新发送";
     public static final String MESSAGE_CODE_INVALID = "验证码不正确";
+    public static final String ATTR_NAME_LOGIN_MEMBER = "loginMember";
 }

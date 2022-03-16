@@ -30,7 +30,7 @@ public class RedisHandler {
         }
     }
 
-    @RequestMapping("set/redis/key/value/remote/with/ timeout")
+    @RequestMapping("set/redis/key/value/remote/with/timeout")
     ResultEntity<String> setRedisKeyValueRemoteWithTimeout(
             @RequestParam("key") String key,
             @RequestParam("value") String value,

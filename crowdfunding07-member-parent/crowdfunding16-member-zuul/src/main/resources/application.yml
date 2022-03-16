@@ -1,19 +1,27 @@
 server:
   port: 80
+
+spring:
+  application:
+    name: tim-crowd-zuul
+  redis:
+    host: 127.0.0.1
+  session:
+    store-type: redis
+
+
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:1000/eureka
-spring:
-  application:
-    name: tim-crowd-zuul
+
 zuul:
   routes:
     crowd-portal:
       service-id: tim-crowd-auth
       path: /**
-  ignored-services: "*"
-  sensitive-headers: "*"
-ribbon:
-  ReadTimeout: 10000
-  ConnectTimeout: 10000
+    ignored-services: "*"
+    sensitive-headers: "*"
+  host:
+    socket-timeout-millis: 200000
+    connect-timeout-millis: 200000

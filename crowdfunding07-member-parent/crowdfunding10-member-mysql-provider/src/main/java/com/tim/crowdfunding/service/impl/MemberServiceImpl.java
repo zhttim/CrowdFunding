@@ -23,6 +23,9 @@ public class MemberServiceImpl implements MemberService {
         MemberPOExample.Criteria criteria = memberPOExample.createCriteria();
         criteria.andLoginacctEqualTo(loginacct);
         List<MemberPO> memberPOList = memberPOMapper.selectByExample(memberPOExample);
+        if (memberPOList == null || memberPOList.size() == 0) {
+            return null;
+        }
         return memberPOList.get(0);
     }
 

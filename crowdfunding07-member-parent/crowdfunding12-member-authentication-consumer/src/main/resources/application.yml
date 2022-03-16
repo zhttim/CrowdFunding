@@ -6,10 +6,17 @@ spring:
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
+  redis:
+    host: 127.0.0.1
+  session:
+    store-type: redis
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:1000/eureka
-ribbon:
-  ReadTimeout: 10000
-  ConnectTimeout: 10000
+feign:
+  client:
+    config:
+      default:
+        ConnectTimeOut: 5000
+        ReadTimeOut: 10000

@@ -22,10 +22,9 @@
     </modules>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-
     <dependencyManagement>
         <dependencies>
             <!-- 导入 SpringCloud 需要使用的依赖信息 -->
@@ -33,9 +32,11 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>Greenwich.SR2</version>
-                <type>pom</type> <!-- import 依赖范围表示将 spring-cloud-dependencies 包中的依赖信息导入 -->
+                <type>pom</type>
+                <!-- import 依赖范围表示将 spring-cloud-dependencies 包中的依赖信息导入 -->
                 <scope>import</scope>
-            </dependency> <!-- 导入 SpringBoot 需要使用的依赖信息 -->
+            </dependency>
+            <!-- 导入 SpringBoot 需要使用的依赖信息 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -53,27 +54,6 @@
                 <artifactId>druid</artifactId>
                 <version>1.0.5</version>
             </dependency>
-            <dependency>
-                <groupId>javax.xml.bind</groupId>
-                <artifactId>jaxb-api</artifactId>
-                <version>2.3.0</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sun.xml.bind</groupId>
-                <artifactId>jaxb-impl</artifactId>
-                <version>2.3.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish.jaxb</groupId>
-                <artifactId>jaxb-runtime</artifactId>
-                <version>2.3.0</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.activation</groupId>
-                <artifactId>activation</artifactId>
-                <version>1.1.1</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
-
 </project>

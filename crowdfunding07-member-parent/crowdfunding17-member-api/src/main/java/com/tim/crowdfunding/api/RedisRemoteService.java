@@ -1,13 +1,12 @@
 package com.tim.crowdfunding.api;
 
 import com.tim.crwodfunding.util.ResultEntity;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.concurrent.TimeUnit;
-@FeignClient("tim-crowd-redis")
+@FeignClient(value = "tim-crowd-redis")
 public interface RedisRemoteService {
 
     @RequestMapping("set/redis/key/value/remote")
@@ -15,7 +14,8 @@ public interface RedisRemoteService {
             @RequestParam("key") String key,
             @RequestParam("value") String value
     );
-    @RequestMapping("set/redis/key/value/remote/with/ timeout")
+
+    @RequestMapping("set/redis/key/value/remote/with/timeout")
     ResultEntity<String> setRedisKeyValueRemoteWithTimeout(
             @RequestParam("key") String key,
             @RequestParam("value") String value,
