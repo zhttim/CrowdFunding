@@ -20,8 +20,20 @@ zuul:
     crowd-portal:
       service-id: tim-crowd-auth
       path: /**
+    crowd-project:
+      service-id: tim-crowd-project
+      path: /project/**
     ignored-services: "*"
     sensitive-headers: "*"
-  host:
-    socket-timeout-millis: 200000
-    connect-timeout-millis: 200000
+  ribbon.eager-load.enabled: true
+
+ribbon:
+  ReadTimeout: 200000
+  ConnectTimeout: 200000
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000000
