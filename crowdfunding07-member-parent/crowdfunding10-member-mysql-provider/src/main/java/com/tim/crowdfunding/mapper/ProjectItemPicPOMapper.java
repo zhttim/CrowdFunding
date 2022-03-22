@@ -1,11 +1,13 @@
 package com.tim.crowdfunding.mapper;
 
-import com.tim.crowdfunding.entity.ProjectItemPicPO;
-import com.tim.crowdfunding.entity.ProjectItemPicPOExample;
+import com.tim.crowdfunding.entity.po.ProjectItemPicPO;
+import com.tim.crowdfunding.entity.po.ProjectItemPicPOExample;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+@Mapper
 public interface ProjectItemPicPOMapper {
     int countByExample(ProjectItemPicPOExample example);
 
@@ -28,4 +30,6 @@ public interface ProjectItemPicPOMapper {
     int updateByPrimaryKeySelective(ProjectItemPicPO record);
 
     int updateByPrimaryKey(ProjectItemPicPO record);
+
+    void insertPathList(@Param("detailPicturePathList") List<String> detailPicturePathList, @Param("projectId") Integer projectId);
 }

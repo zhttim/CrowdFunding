@@ -101,6 +101,12 @@
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
+    <insert id="insertPathList">
+        insert into t_project_item_pic(projectid, item_pic_path) values
+        <foreach collection="detailPicturePathList" item="detailPath" separator=",">
+            (#{projectId}, #{detailPath})
+        </foreach>
+    </insert>
     <insert id="insert" parameterType="com.tim.crowdfunding.entity.po.ProjectItemPicPO">
         insert into t_project_item_pic (id, projectid, item_pic_path)
         values (#{id,jdbcType=INTEGER}, #{projectid,jdbcType=INTEGER}, #{itemPicPath,jdbcType=VARCHAR})

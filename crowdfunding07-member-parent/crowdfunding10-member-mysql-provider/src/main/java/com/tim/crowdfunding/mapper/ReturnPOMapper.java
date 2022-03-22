@@ -1,11 +1,13 @@
 package com.tim.crowdfunding.mapper;
 
-import com.tim.crowdfunding.entity.ReturnPO;
-import com.tim.crowdfunding.entity.ReturnPOExample;
+import com.tim.crowdfunding.entity.po.ReturnPO;
+import com.tim.crowdfunding.entity.po.ReturnPOExample;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+@Mapper
 public interface ReturnPOMapper {
     int countByExample(ReturnPOExample example);
 
@@ -28,4 +30,6 @@ public interface ReturnPOMapper {
     int updateByPrimaryKeySelective(ReturnPO record);
 
     int updateByPrimaryKey(ReturnPO record);
+
+    void insertReturnPOBatch(@Param("returnPOList") List<ReturnPO> returnPOList, @Param("projectId") Integer projectId);
 }

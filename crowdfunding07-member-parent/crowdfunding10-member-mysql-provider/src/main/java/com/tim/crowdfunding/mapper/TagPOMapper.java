@@ -1,11 +1,13 @@
 package com.tim.crowdfunding.mapper;
 
-import com.tim.crowdfunding.entity.TagPO;
-import com.tim.crowdfunding.entity.TagPOExample;
+import com.tim.crowdfunding.entity.po.TagPO;
+import com.tim.crowdfunding.entity.po.TagPOExample;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+@Mapper
 public interface TagPOMapper {
     int countByExample(TagPOExample example);
 

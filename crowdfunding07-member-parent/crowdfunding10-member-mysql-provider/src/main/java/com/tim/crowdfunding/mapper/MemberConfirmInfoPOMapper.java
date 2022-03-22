@@ -1,11 +1,13 @@
 package com.tim.crowdfunding.mapper;
 
-import com.tim.crowdfunding.entity.MemberConfirmInfoPO;
-import com.tim.crowdfunding.entity.MemberConfirmInfoPOExample;
+import com.tim.crowdfunding.entity.po.MemberConfirmInfoPO;
+import com.tim.crowdfunding.entity.po.MemberConfirmInfoPOExample;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+@Mapper
 public interface MemberConfirmInfoPOMapper {
     int countByExample(MemberConfirmInfoPOExample example);
 

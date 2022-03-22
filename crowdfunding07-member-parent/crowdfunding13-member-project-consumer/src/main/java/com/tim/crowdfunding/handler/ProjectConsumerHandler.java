@@ -1,6 +1,9 @@
 package com.tim.crowdfunding.handler;
 
+import com.tim.crowdfunding.api.MySQLRemoteService;
 import com.tim.crowdfunding.config.OSSProperties;
+import com.tim.crowdfunding.entity.vo.MemberConfirmInfoVO;
+import com.tim.crowdfunding.entity.vo.MemberLoginVO;
 import com.tim.crowdfunding.entity.vo.ProjectVO;
 import com.tim.crowdfunding.entity.vo.ReturnVO;
 import com.tim.crwodfunding.constant.CrowdConstant;
@@ -24,6 +27,31 @@ import java.util.Objects;
 public class ProjectConsumerHandler {
     @Autowired
     private OSSProperties ossProperties;
+
+    @Autowired
+    MySQLRemoteService mySQLRemoteService;
+
+    @RequestMapping("/create/confirm")
+    public String saveConfirm(ModelMap modelMap, HttpSession session, MemberConfirmInfoVO memberConfirmInfoVO) {
+        // 1.从 session 域中读取之前缓存的 ProjectVO 对象
+        ProjectVO projectVO = (ProjectVO) session.getAttribute(CrowdConstant.ATTR_NAME_TEMPLE_PROJECT);
+        // 2.判断 projectVO 是否为 null
+        if (projectVO == null) {
+            throw new RuntimeException(CrowdConstant.MESSAGE_TEMPLE_PROJECT_MISSING);
+        }
+        projectVO.setMemberConfirmInfoVO(memberConfirmInfoVO);
+
+        MemberLoginVO memberLoginVO = (MemberLoginVO) session.getAttribute(CrowdConstant.ATTR_NAME_LOGIN_MEMBER);
+        Integer memberId = memberLoginVO.getId();
+        ResultEntity<String> saveResultEntity = mySQLRemoteService.saveProjectVORemote(projectVO, memberId);
+        String result = saveResultEntity.getResult();
+        if (ResultEntity.FAILED.equals(result)) {
+            modelMap.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE, saveResultEntity.getMessage());
+            return "project-confirm";
+        }
+        session.removeAttribute(CrowdConstant.ATTR_NAME_TEMPLE_PROJECT);
+        return "redirect:http://www.crowd.com/project/create/success";
+    }
 
     @ResponseBody
     @RequestMapping("//create/save/return.json")
