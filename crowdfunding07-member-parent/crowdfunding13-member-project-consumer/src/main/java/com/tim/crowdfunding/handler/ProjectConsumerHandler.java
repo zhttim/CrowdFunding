@@ -2,16 +2,15 @@ package com.tim.crowdfunding.handler;
 
 import com.tim.crowdfunding.api.MySQLRemoteService;
 import com.tim.crowdfunding.config.OSSProperties;
-import com.tim.crowdfunding.entity.vo.MemberConfirmInfoVO;
-import com.tim.crowdfunding.entity.vo.MemberLoginVO;
-import com.tim.crowdfunding.entity.vo.ProjectVO;
-import com.tim.crowdfunding.entity.vo.ReturnVO;
+import com.tim.crowdfunding.entity.vo.*;
 import com.tim.crwodfunding.constant.CrowdConstant;
 import com.tim.crwodfunding.util.CrowdUtil;
 import com.tim.crwodfunding.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,6 +29,20 @@ public class ProjectConsumerHandler {
 
     @Autowired
     MySQLRemoteService mySQLRemoteService;
+
+    @RequestMapping("/get/project/detail/{projectId}")
+    public String getProjectDetail(@PathVariable("projectId") Integer projectId,
+                                   Model model) {
+
+        ResultEntity<DetailProjectVO> resultEntity = mySQLRemoteService.getDetailProjectVORemote(projectId);
+
+        if (ResultEntity.SUCCESS.equals(resultEntity.getResult())) {
+            DetailProjectVO detailProjectVO = resultEntity.getData();
+            model.addAttribute("detailProjectVO", detailProjectVO);
+        }
+
+        return "project-show-detail";
+    }
 
     @RequestMapping("/create/confirm")
     public String saveConfirm(ModelMap modelMap, HttpSession session, MemberConfirmInfoVO memberConfirmInfoVO) {
