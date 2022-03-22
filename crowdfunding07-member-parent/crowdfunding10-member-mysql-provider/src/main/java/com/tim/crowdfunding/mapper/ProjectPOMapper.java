@@ -2,6 +2,7 @@ package com.tim.crowdfunding.mapper;
 
 import com.tim.crowdfunding.entity.po.ProjectPO;
 import com.tim.crowdfunding.entity.po.ProjectPOExample;
+import com.tim.crowdfunding.entity.vo.PortalTypeVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -34,4 +35,6 @@ public interface ProjectPOMapper {
     void insertTypeRelationShip(@Param("typeIdList") List<Integer> typeIdList, @Param("projectId") Integer projectId);
 
     void insertTagRelationShip(@Param("tagIdList") List<Integer> tagIdList, @Param("projectId") Integer projectId);
+
+    List<PortalTypeVO> selectPortalTypeVOList();
 }

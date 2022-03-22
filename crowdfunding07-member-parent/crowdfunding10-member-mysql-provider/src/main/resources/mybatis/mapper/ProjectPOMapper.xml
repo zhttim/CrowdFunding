@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tim.crowdfunding.mapper.ProjectPOMapper">
+    <resultMap id="LoadPortalProjectListResultMap" type="com.tim.crowdfunding.entity.vo.PortalTypeVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="remark" property="remark"/>
+        <collection property="PortalProjectVO" column="id" ofType="com.tim.crowdfunding.entity.vo.PortalProjectVO"
+                    select="com.tim.crowdfunding.mapper.MemberPOMapper.selectPortalProjectVOList"/>
+    </resultMap>
+    <select id="selectPortalTypeVOList" resultMap="LoadPortalProjectListResultMap">
+        select id,
+               name,
+               remark
+        from t_type
+    </select>
+    <select id="selectPortalProjectVOList" resultType="com.tim.crowdfunding.entity.vo.PortalProjectVO">
+        select t_project.id               projectId,
+               project_name               projectName,
+               money,
+               deploydate                 deployDate,
+               supportmoney / money * 100 percentage,
+               supporter                  supporter,
+               header_picture_path        headerPicturePath
+        from t_project
+                 left join t_project_type on t_project.id = t_project_type.projectid
+        where t_project_type.typeid = #{id}
+        order by t_project.id DESC
+        limit 0, 4
+    </select>
     <resultMap id="BaseResultMap" type="com.tim.crowdfunding.entity.po.ProjectPO">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="project_name" property="projectName" jdbcType="VARCHAR"/>

@@ -4,10 +4,7 @@ import com.tim.crowdfunding.entity.po.MemberConfirmInfoPO;
 import com.tim.crowdfunding.entity.po.MemberLaunchInfoPO;
 import com.tim.crowdfunding.entity.po.ProjectPO;
 import com.tim.crowdfunding.entity.po.ReturnPO;
-import com.tim.crowdfunding.entity.vo.MemberConfirmInfoVO;
-import com.tim.crowdfunding.entity.vo.MemberLauchInfoVO;
-import com.tim.crowdfunding.entity.vo.ProjectVO;
-import com.tim.crowdfunding.entity.vo.ReturnVO;
+import com.tim.crowdfunding.entity.vo.*;
 import com.tim.crowdfunding.mapper.*;
 import com.tim.crowdfunding.service.api.ProjectService;
 import org.springframework.beans.BeanUtils;
@@ -39,6 +36,11 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private ReturnPOMapper returnPOMapper;
+
+    @Override
+    public List<PortalTypeVO> getPortalTypeVO() {
+        return projectPOMapper.selectPortalTypeVOList();
+    }
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
     @Override
