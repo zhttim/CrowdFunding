@@ -23,6 +23,9 @@ zuul:
     crowd-project:
       service-id: tim-crowd-project
       path: /project/**
+    crowd-order:
+      service-id: tim-crowd-order
+      path: /order/**
     ignored-services: "*"
     sensitive-headers: "*"
   ribbon.eager-load.enabled: true
