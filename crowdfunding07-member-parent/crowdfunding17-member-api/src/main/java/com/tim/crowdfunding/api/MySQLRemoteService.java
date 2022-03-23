@@ -1,10 +1,7 @@
 package com.tim.crowdfunding.api;
 
 import com.tim.crowdfunding.entity.po.MemberPO;
-import com.tim.crowdfunding.entity.vo.DetailProjectVO;
-import com.tim.crowdfunding.entity.vo.OrderProjectVO;
-import com.tim.crowdfunding.entity.vo.PortalTypeVO;
-import com.tim.crowdfunding.entity.vo.ProjectVO;
+import com.tim.crowdfunding.entity.vo.*;
 import com.tim.crwodfunding.util.ResultEntity;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,4 +31,8 @@ public interface MySQLRemoteService {
 
     @RequestMapping("/get/order/project/vo/remote")
     ResultEntity<OrderProjectVO> getOrderProjectVORemote(@RequestParam("returnId") Integer returnId);
+
+    @RequestMapping("/get/address/vo/remote")
+    ResultEntity<List<AddressVO>> getAddressVORemote(@RequestParam("memberId") Integer memberId);
+
 }
