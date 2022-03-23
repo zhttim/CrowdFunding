@@ -2,6 +2,7 @@ package com.tim.crowdfunding.handler;
 
 import com.tim.crowdfunding.entity.vo.AddressVO;
 import com.tim.crowdfunding.entity.vo.OrderProjectVO;
+import com.tim.crowdfunding.entity.vo.OrderVO;
 import com.tim.crowdfunding.service.api.OrderService;
 import com.tim.crwodfunding.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,19 @@ public class OrderProviderHandler {
 
     @Autowired
     private OrderService orderService;
+
+    @RequestMapping("/save/order/remote")
+    ResultEntity<String> saveOrderRemote(@RequestBody OrderVO orderVO) {
+        try {
+            orderService.saveOrderVO(orderVO);
+
+            return ResultEntity.successWithoutData();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return ResultEntity.failed(e.getMessage());
+        }
+    }
 
     @RequestMapping("/save/address/vo/remote")
     ResultEntity<String> saveAddressRemote(@RequestBody AddressVO addressVO) {

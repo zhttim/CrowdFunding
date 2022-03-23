@@ -5,9 +5,11 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
+import com.tim.crowdfunding.api.MySQLRemoteService;
 import com.tim.crowdfunding.config.PayProperties;
 import com.tim.crowdfunding.entity.vo.OrderProjectVO;
 import com.tim.crowdfunding.entity.vo.OrderVO;
+import com.tim.crwodfunding.util.ResultEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ import java.util.*;
 public class PayHandler {
     @Autowired
     private PayProperties payProperties;
+    @Autowired
+    private MySQLRemoteService mySQLRemoteService;
 
     private Logger logger = LoggerFactory.getLogger(PayHandler.class);
 
@@ -66,6 +70,15 @@ public class PayHandler {
             String orderAmount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"), "UTF-8");
 
             // 保存到数据库
+            // 1.从Session域中获取OrderVO对象
+            OrderVO orderVO = (OrderVO) session.getAttribute("orderVO");
+
+            // 2.将支付宝交易号设置到OrderVO对象中
+            orderVO.setPayOrderNum(payOrderNum);
+
+            // 3.发送给MySQL的远程接口
+            ResultEntity<String> resultEntity = mySQLRemoteService.saveOrderRemote(orderVO);
+            logger.info("Order save result=" + resultEntity.getResult());
 
             return "trade_no:" + payOrderNum + "<br/>out_trade_no:" + orderNum + "<br/>total_amount:" + orderAmount;
         } else {
@@ -166,8 +179,8 @@ public class PayHandler {
      * @param totalAmount 订单的总金额
      * @param subject     订单的标题，这里可以使用项目名称
      * @param body        商品的描述，这里可以使用回报描述
-     * @throws AlipayApiException
      * @return 返回到页面上显示的支付宝登录界面
+     * @throws AlipayApiException
      */
     private String sendRequestToAliPay(String outTradeNo, Double totalAmount, String subject, String body) throws AlipayApiException {
         //获得初始化的AlipayClient

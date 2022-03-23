@@ -115,7 +115,8 @@
                 #{orderAmount,jdbcType=DOUBLE}, #{invoice,jdbcType=INTEGER}, #{invoiceTitle,jdbcType=CHAR},
                 #{orderRemark,jdbcType=CHAR}, #{addressId,jdbcType=CHAR})
     </insert>
-    <insert id="insertSelective" parameterType="com.tim.crowdfunding.entity.po.OrderPO">
+    <insert id="insertSelective" parameterType="com.tim.crowdfunding.entity.po.OrderPO" useGeneratedKeys="true"
+            keyProperty="id">
         insert into t_order
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
