@@ -1,0 +1,31 @@
+server:
+  port: 7000
+spring:
+  application:
+    name: tim-crowd-pay
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+  redis:
+    host: 127.0.0.1
+  session:
+    store-type: redis
+
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+
+eureka:
+  client:
+    service-url:
+    defaultZone: http://localhost:1000/eureka
+
+ali.pay:
+  alipay-public-key:
+  app-id: 2021000117606212
+  charset: utf-8
+  gateway-url: https://openapi.alipaydev.com/gateway.do
+  merchant-private-key:
+  notify-url: http://grekcv.natappfree.cc/pay/notify
+  return-url: http://www.crowd.com/pay/return
+  sign-type: RSA2

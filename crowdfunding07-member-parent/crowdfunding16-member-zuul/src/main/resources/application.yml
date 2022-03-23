@@ -26,6 +26,9 @@ zuul:
     crowd-order:
       service-id: tim-crowd-order
       path: /order/**
+    crowd-pay:
+      service-id: tim-crowd-pay
+      path: /pay/**
     ignored-services: "*"
     sensitive-headers: "*"
   ribbon.eager-load.enabled: true

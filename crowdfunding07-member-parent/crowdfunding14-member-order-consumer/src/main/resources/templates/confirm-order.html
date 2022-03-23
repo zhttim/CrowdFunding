@@ -447,11 +447,34 @@
 
 </div>
 <!-- /container -->
+
+<!-- 为了收集当前页面中的所有数据，构造空表单 -->
+<form id="summaryForm" action="pay/generate/order" method="post"></form>
+
 <script src="jquery/jquery-2.1.1.min.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="script/docs.min.js"></script>
 <script src="script/back-to-top.js"></script>
 <script>
+
+    $("#payButton").click(function () {
+
+        // 1.收集所有要提交的表单项的数据
+        var addressId = $("[name=addressId]:checked").val();
+        var invoice = $("[name=invoiceRadio]:checked").val();
+        var invoiceTitle = $.trim($("[name=invoiceTitle]").val());
+        var remark = $.trim($("[name=remark]").val());
+
+        // 2.将上面收集到的表单数据填充到空表单中并提交
+        $("#summaryForm")
+            .append("<input type='hidden' name='addressId' value='" + addressId + "'/>")
+            .append("<input type='hidden' name='invoice' value='" + invoice + "'/>")
+            .append("<input type='hidden' name='invoiceTitle' value='" + invoiceTitle + "'/>")
+            .append("<input type='hidden' name='orderRemark' value='" + remark + "'/>")
+            .submit();
+
+    });
+
     $("#knowRoleCheckBox").click(function () {
         var currentStatus = this.checked;
         if (currentStatus) {
@@ -465,5 +488,3 @@
         $(this).tab('show')
     })
 </script>
-</body>
-</html>
