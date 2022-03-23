@@ -2,10 +2,13 @@ package com.tim.crowdfunding.mapper;
 
 import com.tim.crowdfunding.entity.po.OrderProjectPO;
 import com.tim.crowdfunding.entity.po.OrderProjectPOExample;
+import com.tim.crowdfunding.entity.vo.OrderProjectVO;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+@Mapper
 public interface OrderProjectPOMapper {
     int countByExample(OrderProjectPOExample example);
 
@@ -28,4 +31,6 @@ public interface OrderProjectPOMapper {
     int updateByPrimaryKeySelective(OrderProjectPO record);
 
     int updateByPrimaryKey(OrderProjectPO record);
+
+    OrderProjectVO selectOrderProjectVO(Integer returnId);
 }

@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tim.crowdfunding.mapper.OrderProjectPOMapper">
+
+    <select id="selectOrderProjectVO" resultType="com.atguigu.crowd.entity.vo.OrderProjectVO">
+        select distinct project_name          projectName,
+                        content               returnContent,
+                        description_simple    launchName,
+                        t_return.supportmoney supportPrice,
+                        freight,
+                        count                 returnCount,
+                        signalpurchase        signalPurchase,
+                        purchase
+        from t_project
+                 left join t_member_launch_info tmli on t_project.memberid = tmli.memberid
+                 left join t_return on t_project.id = t_return.projectid
+        where t_return.id = #{returnId}
+    </select>
+
     <resultMap id="BaseResultMap" type="com.tim.crowdfunding.entity.po.OrderProjectPO">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="project_name" property="projectName" jdbcType="CHAR"/>

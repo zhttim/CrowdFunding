@@ -2,10 +2,12 @@ package com.tim.crowdfunding.mapper;
 
 import com.tim.crowdfunding.entity.po.AddressPO;
 import com.tim.crowdfunding.entity.po.AddressPOExample;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+@Mapper
 public interface AddressPOMapper {
     int countByExample(AddressPOExample example);
 

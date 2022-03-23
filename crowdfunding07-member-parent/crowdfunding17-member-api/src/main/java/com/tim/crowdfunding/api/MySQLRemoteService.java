@@ -2,6 +2,7 @@ package com.tim.crowdfunding.api;
 
 import com.tim.crowdfunding.entity.po.MemberPO;
 import com.tim.crowdfunding.entity.vo.DetailProjectVO;
+import com.tim.crowdfunding.entity.vo.OrderProjectVO;
 import com.tim.crowdfunding.entity.vo.PortalTypeVO;
 import com.tim.crowdfunding.entity.vo.ProjectVO;
 import com.tim.crwodfunding.util.ResultEntity;
@@ -30,4 +31,7 @@ public interface MySQLRemoteService {
 
     @RequestMapping("/get/project/detail/remote/{projectId}")
     ResultEntity<DetailProjectVO> getDetailProjectVORemote(@PathVariable("projectId") Integer projectId);
+
+    @RequestMapping("/get/order/project/vo/remote")
+    ResultEntity<OrderProjectVO> getOrderProjectVORemote(@RequestParam("returnId") Integer returnId);
 }
