@@ -11,6 +11,7 @@ import com.tim.crowdfunding.service.api.OrderService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -25,6 +26,14 @@ public class OrderServiceImpl implements OrderService {
     private AddressPOMapper addressPOMapper;
     @Autowired
     private OrderPOMapper orderPOMapper;
+
+    @Override
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
+    public void saveAddressVO(AddressVO addressVO) {
+        AddressPO addressPO = new AddressPO();
+        BeanUtils.copyProperties(addressVO, addressPO);
+        addressPOMapper.insert(addressPO);
+    }
 
     @Override
     public List<AddressVO> getAddressVOList(Integer memberId) {

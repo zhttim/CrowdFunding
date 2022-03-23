@@ -9,4 +9,6 @@ public interface OrderService {
     OrderProjectVO getOrderProjectVO(Integer returnId);
 
     List<AddressVO> getAddressVOList(Integer memberId);
+
+    void saveAddressVO(AddressVO addressVO);
 }

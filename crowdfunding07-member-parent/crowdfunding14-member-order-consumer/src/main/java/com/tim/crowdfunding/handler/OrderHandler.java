@@ -19,6 +19,22 @@ public class OrderHandler {
     @Autowired
     private MySQLRemoteService mySQLRemoteService;
 
+    @RequestMapping("/save/address")
+    public String saveAddress(AddressVO addressVO, HttpSession session) {
+
+        // 1.保存地址信息
+        ResultEntity<String> resultEntity = mySQLRemoteService.saveAddressRemote(addressVO);
+
+        // 2.从Session域中获取orderProjectVO
+        OrderProjectVO orderProjectVO = (OrderProjectVO) session.getAttribute("orderProjectVO");
+
+        // 3.获取returnCount
+        Integer returnCount = orderProjectVO.getReturnCount();
+
+        // 4.重定向到指定地址，重新进入确定订单页面（数据库中地址信息已更新，页面中显示的是新的地址信息）
+        return "redirect:http://crowd.com/order/confirm/order/" + returnCount;
+    }
+
 
     @RequestMapping("/confirm/order/{returnCount}")
     public String showConfirmOrderInfo(@PathVariable Integer returnCount,

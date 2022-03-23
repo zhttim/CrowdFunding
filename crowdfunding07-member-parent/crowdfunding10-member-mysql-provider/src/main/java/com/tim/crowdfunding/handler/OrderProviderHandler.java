@@ -5,6 +5,7 @@ import com.tim.crowdfunding.entity.vo.OrderProjectVO;
 import com.tim.crowdfunding.service.api.OrderService;
 import com.tim.crwodfunding.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,17 @@ public class OrderProviderHandler {
 
     @Autowired
     private OrderService orderService;
+
+    @RequestMapping("/save/address/vo/remote")
+    ResultEntity<String> saveAddressRemote(@RequestBody AddressVO addressVO) {
+        try {
+            orderService.saveAddressVO(addressVO);
+            return ResultEntity.successWithoutData();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultEntity.failed(e.getMessage());
+        }
+    }
 
     @RequestMapping("/get/address/vo/remote")
     ResultEntity<List<AddressVO>> getAddressVORemote(@RequestParam("memberId") Integer memberId) {
